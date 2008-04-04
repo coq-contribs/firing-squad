@@ -1,0 +1,19 @@
+
+Firing Squad Synchronization Problem
+
+Jean Duprat (LIP, ENS Lyon), July 1997
+
+The firing squad synchronization problem was introduced by Moore in 1962.
+One considers a finite -but arbitrarily long- ordered line of n
+finite-state machines. At time O, the leftest one is distinguished
+(general) from the others ones (soldiers).These machines work
+synchronously; the state of a machine number i at time t+1 depends only of
+the states at time t of the machines number i-1, i and i+1.
+The problem is to define finite sets of states and transition rules so that
+all machines enter for the first time a distinguished state (fire) at the
+very same moment.
+Jacques Mazoyer (LIP-ENS Lyon) has given a six-state minimal time solution
+in may 86 (TCS 50, pp 183-238). It is the proof that this solution is
+correct which is implemented here in COQ. The machine is described in the
+module autom and the last theorem (named firing squad) is in the module
+final.
