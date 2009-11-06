@@ -14,7 +14,7 @@ vertical.v
 algo.v
 # the test :
 -custom "$(COQBIN)coqtop $(COQFLAGS) -silent -batch -load-vernac-source extract.v" algo.vo algo.ml
--custom "rm *.mli; (mv list.ml polyList.ml || true); (sed -e 's/ List/ PolyList/g' algo.ml > algo.ml.tmp; mv algo.ml.tmp algo.ml); ocamlopt -o fire unix.cmxa graphics.cmxa datatypes.ml specif.ml polyList.ml peano_dec.ml nmax.ml autom.ml algo.ml fire.ml" "algo.ml fire.ml" fire
+-custom "rm *.mli; ocamlopt -o fire unix.cmxa graphics.cmxa datatypes.ml specif.ml peano_dec.ml nmax.ml autom.ml algo.ml fire.ml" "algo.ml fire.ml" fire
 -custom
         "@echo '****** test: firing squad with 10 members *****'
 	./fire 10

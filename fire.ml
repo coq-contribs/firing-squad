@@ -1,7 +1,6 @@
 
 open Datatypes
 open Autom
-open PolyList
 open Algo
 
 let rec i2n = function 0 -> O | n -> (S (i2n (pred n)))
@@ -37,8 +36,8 @@ let bw_of_couleur = function
   | L -> "L"
 
 let rec bw_print_list = function 
-  | Coq_nil -> pr "\n" 
-  | Coq_cons (a,l) -> pr (bw_of_couleur a); bw_print_list l
+  | [] -> pr "\n" 
+  | a :: l -> pr (bw_of_couleur a); bw_print_list l
 
 let bw_main n = 
   let l = ref (initial_line O) in  
@@ -56,8 +55,8 @@ let c_of_couleur = function
   | L -> "\027[31mL"
 
 let rec c_print_list = function 
-  | Coq_nil -> pr "\n" 
-  | Coq_cons (a,l) -> pr (c_of_couleur a); c_print_list l
+  | [] -> pr "\n" 
+  | a :: l -> pr (c_of_couleur a); c_print_list l
 
 let c_main n = 
   let l = ref (initial_line O) in 
@@ -78,8 +77,8 @@ let x_of_couleur = function
   | L -> red
 	
 let rec x_print_list x y = function 
-  | Coq_nil -> ()
-  | Coq_cons (a,q) -> set_color (x_of_couleur a); plot x y; x_print_list x (y+1) q
+  | [] -> ()
+  | a :: q -> set_color (x_of_couleur a); plot x y; x_print_list x (y+1) q
 
 let x_main n = 
   open_graph (Printf.sprintf " %dx%d" (2*n) n);

@@ -15,5 +15,6 @@
 
 
 Require Import algo.
+Extract Inductive list => list [ "[]" "(::)"].
 Extract Inlined Constant autom.N => "(Nmax.get())".
 Recursive Extraction Library algo.
