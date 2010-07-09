@@ -163,7 +163,7 @@ algo.ml: algo.vo
 	$(COQBIN)coqtop $(COQFLAGS) -silent -batch -load-vernac-source extract.v
 
 fire: algo.ml fire.ml
-	rm *.mli; $(CAMLBIN)ocamlopt -o fire unix.cmxa graphics.cmxa Datatypes.ml Specif.ml Peano_dec.ml nmax.ml autom.ml algo.ml fire.ml
+	rm *.mli; $(CAMLBIN)ocamlopt -o fire unix.cmxa graphics.cmxa Datatypes.ml Peano.ml Specif.ml Peano_dec.ml nmax.ml bib.ml autom.ml algo.ml fire.ml
 
 test: fire
 	@echo '****** test: firing squad with 10 members *****'
