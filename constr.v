@@ -434,9 +434,6 @@ intros dx; rewrite plus_deux; intros H8; injection H8; clear H8; intros;
 apply H2; auto with v62.
 apply lt_S_n; rewrite H8; auto with v62.
 
-apply H5; auto with v62.
-simpl in |- *; auto with v62.
-
 rewrite plus_zero; rewrite H8; auto with v62.
 
 intros; simpl in H10; injection H10; clear H10; rewrite <- plus_Snm_nSm;
@@ -584,9 +581,6 @@ intros dx; rewrite plus_deux; intros; unfold un in |- *;
 apply H2; auto with v62.
 simpl in |- *; rewrite <- H8; auto with v62.
 
-apply H5; auto with v62.
-simpl in |- *; rewrite <- H8; auto with v62.
-
 rewrite plus_zero; rewrite H8; auto with v62.
 
 intros; apply (Pas_hb Q Q' Q'' Q''); auto with v62.
@@ -627,9 +621,6 @@ intros dx; unfold un in |- *; intros; simpl in H8;
 apply H2; auto with v62.
 rewrite <- H8; simpl in |- *; auto with v62.
 
-apply H5; auto with v62.
-rewrite <- H8; simpl in |- *; auto with v62.
-
 rewrite plus_zero; rewrite H8; auto with v62.
 
 intros; apply (Pas_bb Q Q' Q'' Q''); auto with v62.
@@ -654,9 +645,6 @@ intros dx; unfold un in |- *; intros; simpl in H7;
 apply H2; auto with v62.
 rewrite <- H7; simpl in |- *; auto with v62.
 
-apply H5; auto with v62.
-rewrite <- H7; simpl in |- *; auto with v62.
-
 rewrite plus_zero; rewrite H7; auto with v62.
 
 intros; apply (Pas_bb Q Q' Q'' Q''); auto with v62.
@@ -679,9 +667,6 @@ apply Rec_SemiDiag; auto with v62.
 intros dx; unfold un in |- *; intros; simpl in H6;
  apply (Pas_bb Q Q' P'' Q''); auto with v62.
 apply H2; auto with v62.
-rewrite <- H6; simpl in |- *; auto with v62.
-
-apply H4; auto with v62.
 rewrite <- H6; simpl in |- *; auto with v62.
 
 rewrite plus_zero; rewrite H6; auto with v62.
