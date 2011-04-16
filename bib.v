@@ -379,7 +379,7 @@ apply reste_2_0 with (q := S q).
 apply even_S; auto with v62.
 
 rewrite double_S; auto with v62.
-Qed.
+Defined.
 
 End modulo_2.
 
