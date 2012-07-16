@@ -38,6 +38,8 @@ Require Export Arith.
 Require Export Peano_dec.
 Require Export Compare_dec.
 
+Global Set Asymmetric Patterns.
+
 Section bibliotheque.
 
 Section regles.
