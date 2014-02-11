@@ -17,17 +17,28 @@
 # coq_makefile -f Make -o Makefile 
 #
 
-# 
-# This Makefile may take 3 arguments passed as environment variables:
-#   - COQBIN to specify the directory where Coq binaries resides;
-#   - CAMLBIN and CAMLP4BIN to give the path for the OCaml and Camlp4/5 binaries.
-COQLIB:=$(shell $(COQBIN)coqtop -where | sed -e 's/\\/\\\\/g')
-CAMLP4:="$(shell $(COQBIN)coqtop -config | awk -F = '/CAMLP4=/{print $$2}')"
-ifndef CAMLP4BIN
-  CAMLP4BIN:=$(CAMLBIN)
-endif
+.DEFAULT_GOAL := all
 
-CAMLP4LIB:=$(shell $(CAMLP4BIN)$(CAMLP4) -where)
+# 
+# This Makefile may take arguments passed as environment variables:
+# COQBIN to specify the directory where Coq binaries resides;
+# TIMECMD set a command to log .v compilation time;
+# TIMED if non empty, use the default time command as TIMECMD;
+# ZDEBUG/COQDEBUG to specify debug flags for ocamlc&ocamlopt/coqc;
+# DSTROOT to specify a prefix to install path.
+
+# Here is a hack to make $(eval $(shell works:
+define donewline
+
+
+endef
+includecmdwithout@ = $(eval $(subst @,$(donewline),$(shell { $(1) | tr -d '\r' | tr '\n' '@'; })))
+$(call includecmdwithout@,$(COQBIN)coqtop -config)
+
+TIMED=
+TIMECMD=
+STDTIME?=/usr/bin/time -f "$* (user: %U mem: %M ko)"
+TIMER=$(if $(TIMED), $(STDTIME), $(TIMECMD))
 
 ##########################
 #                        #
@@ -35,35 +46,9 @@ CAMLP4LIB:=$(shell $(CAMLP4BIN)$(CAMLP4) -where)
 #                        #
 ##########################
 
-OCAMLLIBS:=
-COQSRCLIBS:=-I $(COQLIB)/kernel -I $(COQLIB)/lib \
-  -I $(COQLIB)/library -I $(COQLIB)/parsing \
-  -I $(COQLIB)/pretyping -I $(COQLIB)/interp \
-  -I $(COQLIB)/proofs -I $(COQLIB)/tactics \
-  -I $(COQLIB)/toplevel \
-  -I $(COQLIB)/plugins/cc \
-  -I $(COQLIB)/plugins/decl_mode \
-  -I $(COQLIB)/plugins/dp \
-  -I $(COQLIB)/plugins/extraction \
-  -I $(COQLIB)/plugins/field \
-  -I $(COQLIB)/plugins/firstorder \
-  -I $(COQLIB)/plugins/fourier \
-  -I $(COQLIB)/plugins/funind \
-  -I $(COQLIB)/plugins/interface \
-  -I $(COQLIB)/plugins/micromega \
-  -I $(COQLIB)/plugins/nsatz \
-  -I $(COQLIB)/plugins/omega \
-  -I $(COQLIB)/plugins/quote \
-  -I $(COQLIB)/plugins/ring \
-  -I $(COQLIB)/plugins/romega \
-  -I $(COQLIB)/plugins/rtauto \
-  -I $(COQLIB)/plugins/setoid_ring \
-  -I $(COQLIB)/plugins/subtac \
-  -I $(COQLIB)/plugins/subtac/test \
-  -I $(COQLIB)/plugins/syntax \
-  -I $(COQLIB)/plugins/xml
-COQLIBS:= -R . FiringSquad
-COQDOCLIBS:=-R . FiringSquad
+OCAMLLIBS?=
+COQLIBS?= -R . FiringSquad
+COQDOCLIBS?=-R . FiringSquad
 
 ##########################
 #                        #
@@ -71,87 +56,150 @@ COQDOCLIBS:=-R . FiringSquad
 #                        #
 ##########################
 
+
+OPT?=
+COQDEP?="$(COQBIN)coqdep" -c
+COQFLAGS?=-q $(OPT) $(COQLIBS) $(OTHERFLAGS) $(COQ_XML)
+COQCHKFLAGS?=-silent -o
+COQDOCFLAGS?=-interpolate -utf8
+COQC?=$(TIMER) "$(COQBIN)coqc"
+GALLINA?="$(COQBIN)gallina"
+COQDOC?="$(COQBIN)coqdoc"
+COQCHK?="$(COQBIN)coqchk"
+COQMKTOP?="$(COQBIN)coqmktop"
+
+COQSRCLIBS?=-I "$(COQLIB)kernel" -I "$(COQLIB)lib" \
+  -I "$(COQLIB)library" -I "$(COQLIB)parsing" -I "$(COQLIB)pretyping" \
+  -I "$(COQLIB)interp" -I "$(COQLIB)printing" -I "$(COQLIB)intf" \
+  -I "$(COQLIB)proofs" -I "$(COQLIB)tactics" -I "$(COQLIB)tools" \
+  -I "$(COQLIB)toplevel" -I "$(COQLIB)grammar" \
+  -I $(COQLIB)/plugins/Derive \
+  -I $(COQLIB)/plugins/btauto \
+  -I $(COQLIB)/plugins/cc \
+  -I $(COQLIB)/plugins/decl_mode \
+  -I $(COQLIB)/plugins/extraction \
+  -I $(COQLIB)/plugins/firstorder \
+  -I $(COQLIB)/plugins/fourier \
+  -I $(COQLIB)/plugins/funind \
+  -I $(COQLIB)/plugins/micromega \
+  -I $(COQLIB)/plugins/nsatz \
+  -I $(COQLIB)/plugins/omega \
+  -I $(COQLIB)/plugins/quote \
+  -I $(COQLIB)/plugins/romega \
+  -I $(COQLIB)/plugins/rtauto \
+  -I $(COQLIB)/plugins/setoid_ring \
+  -I $(COQLIB)/plugins/syntax \
+  -I $(COQLIB)/plugins/xml
 ZFLAGS=$(OCAMLLIBS) $(COQSRCLIBS) -I $(CAMLP4LIB)
-OPT:=
-COQFLAGS:=-q $(OPT) $(COQLIBS) $(OTHERFLAGS) $(COQ_XML)
-ifdef CAMLBIN
-  COQMKTOPFLAGS:=-camlbin $(CAMLBIN) -camlp4bin $(CAMLP4BIN)
+
+CAMLC?=$(OCAMLC) -c -rectypes
+CAMLOPTC?=$(OCAMLOPT) -c -rectypes
+CAMLLINK?=$(OCAMLC) -rectypes
+CAMLOPTLINK?=$(OCAMLOPT) -rectypes
+GRAMMARS?=grammar.cma
+ifeq ($(CAMLP4),camlp5)
+CAMLP4EXTEND=pa_extend.cmo q_MLast.cmo pa_macro.cmo
+else
+CAMLP4EXTEND=
 endif
-COQC:=$(COQBIN)coqc
-COQDEP:=$(COQBIN)coqdep -c
-GALLINA:=$(COQBIN)gallina
-COQDOC:=$(COQBIN)coqdoc
-COQMKTOP:=$(COQBIN)coqmktop
-CAMLLIB:=$(shell $(CAMLBIN)ocamlc.opt -where)
-CAMLC:=$(CAMLBIN)ocamlc.opt -c -rectypes
-CAMLOPTC:=$(CAMLBIN)ocamlopt.opt -c -rectypes
-CAMLLINK:=$(CAMLBIN)ocamlc.opt -rectypes
-CAMLOPTLINK:=$(CAMLBIN)ocamlopt.opt -rectypes
-GRAMMARS:=grammar.cma
-CAMLP4EXTEND:=pa_extend.cmo pa_macro.cmo q_MLast.cmo
-CAMLP4OPTIONS:=
-PP:=-pp "$(CAMLP4BIN)$(CAMLP4)o -I $(CAMLLIB) -I . $(COQSRCLIBS) $(CAMLP4EXTEND) $(GRAMMARS) $(CAMLP4OPTIONS) -impl"
+PP?=-pp '"$(CAMLP4O)" -I "$(CAMLLIB)" -I . $(COQSRCLIBS) compat5.cmo \
+  $(CAMLP4EXTEND) $(GRAMMARS) $(CAMLP4OPTIONS) -impl'
 
-###################################
-#                                 #
-# Definition of the "all" target. #
-#                                 #
-###################################
+##################
+#                #
+# Install Paths. #
+#                #
+##################
 
-VFILES:=autom.v\
-  basic.v\
-  bib.v\
-  bord.v\
-  constr.v\
-  double_diag.v\
-  final.v\
-  geom.v\
-  reflection.v\
-  sommet.v\
-  trapeze.v\
+ifdef USERINSTALL
+XDG_DATA_HOME?="$(HOME)/.local/share"
+COQLIBINSTALL=$(XDG_DATA_HOME)/coq
+COQDOCINSTALL=$(XDG_DATA_HOME)/doc/coq
+else
+COQLIBINSTALL="${COQLIB}user-contrib"
+COQDOCINSTALL="${DOCDIR}user-contrib"
+endif
+
+######################
+#                    #
+# Files dispatching. #
+#                    #
+######################
+
+VFILES:=algo.v\
   vertical.v\
-  algo.v
-VOFILES:=$(VFILES:.v=.vo)
+  trapeze.v\
+  sommet.v\
+  reflection.v\
+  geom.v\
+  final.v\
+  double_diag.v\
+  constr.v\
+  bord.v\
+  bib.v\
+  basic.v\
+  autom.v
+
+-include $(addsuffix .d,$(VFILES))
+.SECONDARY: $(addsuffix .d,$(VFILES))
+
+VO=vo
+VOFILES:=$(VFILES:.v=.$(VO))
 GLOBFILES:=$(VFILES:.v=.glob)
-VIFILES:=$(VFILES:.v=.vi)
 GFILES:=$(VFILES:.v=.g)
 HTMLFILES:=$(VFILES:.v=.html)
 GHTMLFILES:=$(VFILES:.v=.g.html)
-MLFILES:=
-CMOFILES:=$(MLFILES:.ml=.cmo)
-CMIFILES:=$(MLFILES:.ml=.cmi)
-CMXFILES:=$(MLFILES:.ml=.cmx)
-CMXSFILES:=$(MLFILES:.ml=.cmxs)
-OFILES:=$(MLFILES:.ml=.o)
+ifeq '$(HASNATDYNLINK)' 'true'
+HASNATDYNLINK_OR_EMPTY := yes
+else
+HASNATDYNLINK_OR_EMPTY :=
+endif
 
-all: $(VOFILES) $(CMOFILES) $(CMXSFILES) algo.ml\
+#######################################
+#                                     #
+# Definition of the toplevel targets. #
+#                                     #
+#######################################
+
+all: $(VOFILES) $(CMOFILES) $(if $(HASNATDYNLINK_OR_EMPTY),$(CMXSFILES)) test\
   fire\
-  test
-spec: $(VIFILES)
+  algo.ml
 
+quick:
+	$(MAKE) -f $(firstword $(MAKEFILE_LIST)) all VO=vi
+checkproofs:
+	$(COQC) $(COQDEBUG) $(COQFLAGS) -schedule-vi-checking $(J) $(VOFILES:%.vo=%.vi)
 gallina: $(GFILES)
 
 html: $(GLOBFILES) $(VFILES)
 	- mkdir -p html
-	$(COQDOC) -toc -html $(COQDOCLIBS) -d html $(VFILES)
+	$(COQDOC) -toc $(COQDOCFLAGS) -html $(COQDOCLIBS) -d html $(VFILES)
 
 gallinahtml: $(GLOBFILES) $(VFILES)
 	- mkdir -p html
-	$(COQDOC) -toc -html -g $(COQDOCLIBS) -d html $(VFILES)
+	$(COQDOC) -toc $(COQDOCFLAGS) -html -g $(COQDOCLIBS) -d html $(VFILES)
 
 all.ps: $(VFILES)
-	$(COQDOC) -toc -ps $(COQDOCLIBS) -o $@ `$(COQDEP) -sort -suffix .v $(VFILES)`
+	$(COQDOC) -toc $(COQDOCFLAGS) -ps $(COQDOCLIBS) -o $@ `$(COQDEP) -sort -suffix .v $^`
 
 all-gal.ps: $(VFILES)
-	$(COQDOC) -toc -ps -g $(COQDOCLIBS) -o $@ `$(COQDEP) -sort -suffix .v $(VFILES)`
+	$(COQDOC) -toc $(COQDOCFLAGS) -ps -g $(COQDOCLIBS) -o $@ `$(COQDEP) -sort -suffix .v $^`
 
 all.pdf: $(VFILES)
-	$(COQDOC) -toc -pdf $(COQDOCLIBS) -o $@ `$(COQDEP) -sort -suffix .v $(VFILES)`
+	$(COQDOC) -toc $(COQDOCFLAGS) -pdf $(COQDOCLIBS) -o $@ `$(COQDEP) -sort -suffix .v $^`
 
 all-gal.pdf: $(VFILES)
-	$(COQDOC) -toc -pdf -g $(COQDOCLIBS) -o $@ `$(COQDEP) -sort -suffix .v $(VFILES)`
+	$(COQDOC) -toc $(COQDOCFLAGS) -pdf -g $(COQDOCLIBS) -o $@ `$(COQDEP) -sort -suffix .v $^`
 
+validate: $(VOFILES)
+	$(COQCHK) $(COQCHKFLAGS) $(COQLIBS) $(notdir $(^:.vo=))
 
+beautify: $(VFILES:=.beautified)
+	for file in $^; do mv $${file%.beautified} $${file%beautified}old && mv $${file} $${file%.beautified}; done
+	@echo 'Do not do "make clean" until you are sure that everything went well!'
+	@echo 'If there were a problem, execute "for file in $$(find . -name \*.v.old -print); do mv $${file} $${file%.old}; done" in your shell/'
+
+.PHONY: all opt byte archclean clean install uninstall_me.sh uninstall userinstall depend html validate
 
 ###################
 #                 #
@@ -159,16 +207,16 @@ all-gal.pdf: $(VFILES)
 #                 #
 ###################
 
-algo.ml: algo.vo
-	$(COQBIN)coqtop $(COQFLAGS) -silent -batch -load-vernac-source extract.v
-
-fire: algo.ml fire.ml
-	rm *.mli *.cm* *.o; $(CAMLBIN)ocamlopt -o fire unix.cmxa graphics.cmxa Datatypes.ml Peano.ml Specif.ml Peano_dec.ml nmax.ml bib.ml autom.ml algo.ml fire.ml
-
 test: fire
 	@echo '****** test: firing squad with 10 members *****'
 	./fire 10
 	@echo '**************** End of test *****************'
+
+fire: algo.ml fire.ml
+	rm *.mli *.cm* *.o; $(CAMLBIN)ocamlopt -o fire unix.cmxa graphics.cmxa Datatypes.ml Peano.ml Specif.ml Peano_dec.ml nmax.ml bib.ml autom.ml algo.ml fire.ml
+
+algo.ml: algo.vo
+	$(COQBIN)coqtop $(COQFLAGS) -silent -batch -load-vernac-source extract.v
 
 ####################
 #                  #
@@ -176,109 +224,113 @@ test: fire
 #                  #
 ####################
 
-.PHONY: all opt byte archclean clean install depend html
-
-%.cmi: %.mli
-	$(CAMLC) $(ZDEBUG) $(ZFLAGS) $<
-
-%.cmo: %.ml
-	$(CAMLC) $(ZDEBUG) $(ZFLAGS) $(PP) $<
-
-%.cmx: %.ml
-	$(CAMLOPTC) $(ZDEBUG) $(ZFLAGS) $(PP) $<
-
-%.cmxs: %.ml
-	$(CAMLOPTLINK) $(ZDEBUG) $(ZFLAGS) -shared -o $@ $(PP) $<
-
-%.cmo: %.ml4
-	$(CAMLC) $(ZDEBUG) $(ZFLAGS) $(PP) -impl $<
-
-%.cmx: %.ml4
-	$(CAMLOPTC) $(ZDEBUG) $(ZFLAGS) $(PP) -impl $<
-
-%.cmxs: %.ml4
-	$(CAMLOPTLINK) $(ZDEBUG) $(ZFLAGS) -shared -o $@ $(PP) -impl $<
-
-%.ml.d: %.ml
-	$(CAMLBIN)ocamldep -slash $(OCAMLLIBS) $(PP) "$<" > "$@"
-
-%.vo %.glob: %.v
-	$(COQC) $(COQDEBUG) $(COQFLAGS) $*
-
-%.vi: %.v
-	$(COQC) -i $(COQDEBUG) $(COQFLAGS) $*
-
-%.g: %.v
-	$(GALLINA) $<
-
-%.tex: %.v
-	$(COQDOC) -latex $< -o $@
-
-%.html: %.v %.glob
-	$(COQDOC) -html $< -o $@
-
-%.g.tex: %.v
-	$(COQDOC) -latex -g $< -o $@
-
-%.g.html: %.v %.glob
-	$(COQDOC) -html -g $< -o $@
-
-%.v.d: %.v
-	$(COQDEP) -slash $(COQLIBS) "$<" > "$@" || ( RV=$$?; rm -f "$@"; exit $${RV} )
-
 byte:
 	$(MAKE) all "OPT:=-byte"
 
 opt:
 	$(MAKE) all "OPT:=-opt"
 
+userinstall:
+	+$(MAKE) USERINSTALL=true install
+
 install:
-	mkdir -p $(COQLIB)/user-contrib
-	(for i in $(VOFILES); do \
-	 install -d `dirname $(COQLIB)/user-contrib/FiringSquad/$$i`; \
-	 install $$i $(COQLIB)/user-contrib/FiringSquad/$$i; \
-	 done)
-	(for i in $(CMOFILES); do \
-	 install -d `dirname $(COQLIB)/user-contrib/FiringSquad/$$i`; \
-	 install $$i $(COQLIB)/user-contrib/FiringSquad/$$i; \
-	 done)
-	(for i in $(CMIFILES); do \
-	 install -d `dirname $(COQLIB)/user-contrib/FiringSquad/$$i`; \
-	 install $$i $(COQLIB)/user-contrib/FiringSquad/$$i; \
-	 done)
-	(for i in $(CMXSFILES); do \
-	 install -d `dirname $(COQLIB)/user-contrib/FiringSquad/$$i`; \
-	 install $$i $(COQLIB)/user-contrib/FiringSquad/$$i; \
-	 done)
+	cd "." && for i in $(VOFILES) $(CMOFILES) $(CMIFILES) $(CMAFILES); do \
+	 install -d "`dirname "$(DSTROOT)"$(COQLIBINSTALL)/FiringSquad/$$i`"; \
+	 install -m 0644 $$i "$(DSTROOT)"$(COQLIBINSTALL)/FiringSquad/$$i; \
+	done
+
+install-doc:
+	install -d "$(DSTROOT)"$(COQDOCINSTALL)/FiringSquad/html
+	for i in html/*; do \
+	 install -m 0644 $$i "$(DSTROOT)"$(COQDOCINSTALL)/FiringSquad/$$i;\
+	done
+
+uninstall_me.sh:
+	echo '#!/bin/sh' > $@ 
+	printf 'cd "$${DSTROOT}"$(COQLIBINSTALL)/FiringSquad && rm -f $(VOFILES) $(CMOFILES) $(CMIFILES) $(CMAFILES) && find . -type d -and -empty -delete\ncd "$${DSTROOT}"$(COQLIBINSTALL) && find "FiringSquad" -maxdepth 0 -and -empty -exec rmdir -p \{\} \;\n' >> "$@"
+	printf 'cd "$${DSTROOT}"$(COQDOCINSTALL)/FiringSquad \\\n' >> "$@"
+	printf '&& rm -f $(shell find "html" -maxdepth 1 -and -type f -print)\n' >> "$@"
+	printf 'cd "$${DSTROOT}"$(COQDOCINSTALL) && find FiringSquad/html -maxdepth 0 -and -empty -exec rmdir -p \{\} \;\n' >> "$@"
+	chmod +x $@
+
+uninstall: uninstall_me.sh
+	sh $<
 
 clean:
-	rm -f $(CMOFILES) $(CMIFILES) $(CMXFILES) $(CMXSFILES) $(OFILES) $(VOFILES) $(VIFILES) $(GFILES) $(MLFILES:.ml=.cmo) $(MLFILES:.ml=.cmx) *~
-	rm -f all.ps all-gal.ps all.pdf all-gal.pdf all.glob $(VFILES:.v=.glob) $(HTMLFILES) $(GHTMLFILES) $(VFILES:.v=.tex) $(VFILES:.v=.g.tex) $(VFILES:.v=.v.d)
-	rm -f $(CMOFILES) $(MLFILES:.ml=.cmi) $(MLFILES:.ml=.ml.d) $(MLFILES:.ml=.cmx) $(MLFILES:.ml=.o)
-	- rm -rf html
-	- rm -f algo.ml
-	- rm -f fire
-	- rm -f test
+	rm -f $(ALLCMOFILES) $(CMIFILES) $(CMAFILES)
+	rm -f $(ALLCMOFILES:.cmo=.cmx) $(CMXAFILES) $(CMXSFILES) $(ALLCMOFILES:.cmo=.o) $(CMXAFILES:.cmxa=.a)
+	rm -f $(addsuffix .d,$(MLFILES) $(MLIFILES) $(ML4FILES) $(MLLIBFILES) $(MLPACKFILES))
+	rm -f $(VOFILES) $(VOFILES:.vo=.vi) $(GFILES) $(VFILES:.v=.v.d) $(VFILES:=.beautified) $(VFILES:=.old)
+	rm -f all.ps all-gal.ps all.pdf all-gal.pdf all.glob $(VFILES:.v=.glob) $(VFILES:.v=.tex) $(VFILES:.v=.g.tex) all-mli.tex
+	- rm -rf html mlihtml uninstall_me.sh
+	- rm -rf test
+	- rm -rf fire
+	- rm -rf algo.ml
 
 archclean:
 	rm -f *.cmx *.o
 
-
-printenv: 
-	@echo CAMLC =	$(CAMLC)
-	@echo CAMLOPTC =	$(CAMLOPTC)
-	@echo CAMLP4LIB =	$(CAMLP4LIB)
+printenv:
+	@"$(COQBIN)coqtop" -config
+	@echo 'CAMLC =	$(CAMLC)'
+	@echo 'CAMLOPTC =	$(CAMLOPTC)'
+	@echo 'PP =	$(PP)'
+	@echo 'COQFLAGS =	$(COQFLAGS)'
+	@echo 'COQLIBINSTALL =	$(COQLIBINSTALL)'
+	@echo 'COQDOCINSTALL =	$(COQDOCINSTALL)'
 
 Makefile: Make
-	mv -f Makefile Makefile.bak
-	$(COQBIN)coq_makefile -f Make -o Makefile
+	mv -f $@ $@.bak
+	"$(COQBIN)coq_makefile" -f $< -o $@
 
 
--include $(VFILES:.v=.v.d)
-.SECONDARY: $(VFILES:.v=.v.d)
+###################
+#                 #
+# Implicit rules. #
+#                 #
+###################
 
--include $(MLFILES:.ml=.ml.d)
-.SECONDARY: $(MLFILES:.ml=.ml.d)
+%.cmo: %.ml
+	$(CAMLC) $(ZDEBUG) $(ZFLAGS) $<
+
+%.cmx: %.ml
+	$(CAMLOPTC) $(ZDEBUG) $(ZFLAGS) $<
+
+%.ml.d: %.ml
+	$(OCAMLDEP) -slash $(OCAMLLIBS) "$<" > "$@" || ( RV=$$?; rm -f "$@"; exit $${RV} )
+
+%.cmxs: %.cmxa
+	$(CAMLOPTLINK) $(ZDEBUG) $(ZFLAGS) -linkall -shared -o $@ $<
+
+%.cmxs: %.cmx
+	$(CAMLOPTLINK) $(ZDEBUG) $(ZFLAGS) -shared -o $@ $<
+
+%.vo %.glob: %.v
+	$(COQC) $(COQDEBUG) $(COQFLAGS) $*
+
+%.vi: %.v
+	$(COQC) -quick $(COQDEBUG) $(COQFLAGS) $*
+
+%.g: %.v
+	$(GALLINA) $<
+
+%.tex: %.v
+	$(COQDOC) $(COQDOCFLAGS) -latex $< -o $@
+
+%.html: %.v %.glob
+	$(COQDOC) $(COQDOCFLAGS) -html $< -o $@
+
+%.g.tex: %.v
+	$(COQDOC) $(COQDOCFLAGS) -latex -g $< -o $@
+
+%.g.html: %.v %.glob
+	$(COQDOC) $(COQDOCFLAGS)  -html -g $< -o $@
+
+%.v.d: %.v
+	$(COQDEP) $(COQLIBS) "$<" > "$@" || ( RV=$$?; rm -f "$@"; exit $${RV} )
+
+%.v.beautified:
+	$(COQC) $(COQDEBUG) $(COQFLAGS) -beautify $*
 
 # WARNING
 #
