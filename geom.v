@@ -278,7 +278,7 @@ elim H; auto with v62.
 
 elim H0; intros; generalize (H2 (dt - S haut)).
 rewrite plus_assoc_reverse; rewrite le_plus_minus_r; auto with v62.
-intros; apply H3;
+intros H4; apply H4;
  apply (fun p n m : nat => plus_le_reg_l n m p) with (p := S haut);
  rewrite le_plus_minus_r; auto with v62.
 Qed.
@@ -347,13 +347,13 @@ Lemma hh_hor :
  forall (t x cote cote' : nat) (P : Local_Prop),
  Horizontale t x cote P ->
  Horizontale t (x + S cote) cote' P -> Horizontale t x (S cote + cote') P.
-intros; apply make_horizontale.
+intros * H H0; apply make_horizontale.
 intros dx; case (le_gt_dec dx cote).
 intros; elim H; auto with v62.
 
-intros; elim H0; intros.
+intros; elim H0; intros H3.
 replace dx with (S cote + (dx - S cote)).
-rewrite plus_assoc; apply H2.
+rewrite plus_assoc; apply H3.
 apply (fun p n m : nat => plus_le_reg_l n m p) with (p := S cote).
 rewrite le_plus_minus_r; auto with v62.
 

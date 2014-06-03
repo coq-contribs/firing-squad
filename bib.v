@@ -92,8 +92,7 @@ Lemma recur2 :
 intros; apply H; elim m.
 intros; absurd (p < 0); auto with v62.
 
-intros; case (le_lt_eq_dec p n); auto with v62.
-intro; rewrite e; apply H; auto with v62.
+intros; case (le_lt_eq_dec p n) as [ | -> ]; auto with v62.
 Qed.
 
 Theorem Rec2 : forall A B C : Prop, (A -> B -> C) -> A -> (A -> B) -> C.
@@ -544,20 +543,14 @@ intros; unfold double, tiers in |- *; case (quotient3 a); simpl in |- *;
 Qed.
 
 Lemma le_troistiers_un : forall n : nat, triple (tiers n) <= n.
-intros; unfold tiers in |- *; case (quotient3 n); intros; rewrite e;
- auto with v62.
+intros; unfold tiers in |- *; case (quotient3 n); intros q ->; auto with v62.
 Qed.
 
 Lemma lt_O_tiers : forall n : nat, deux < n -> 0 < tiers n.
-intros n; unfold tiers in |- *; case (quotient3 n); intros; apply lt_triple.
-rewrite <- e; unfold triple in |- *; simpl in |- *; apply lt_deux_O;
- auto with v62.
-
-apply lt_S_n; rewrite <- e; unfold triple in |- *; simpl in |- *;
- auto with v62.
-
-do 2 apply lt_S_n; rewrite <- e; unfold triple in |- *; simpl in |- *;
- auto with v62.
+intros n; unfold tiers; case (quotient3 n); intros q -> **; apply lt_triple.
+apply lt_deux_O; assumption.
+apply lt_S_n; info_auto with v62.
+do 2 apply lt_S_n; auto with v62.
 Qed.
 
 Lemma lt_O_deuxtiers : forall n : nat, trois <= n -> 0 < double (tiers n).

@@ -404,21 +404,21 @@ generalize (H3 0); simpl in |- *; intros.
 generalize (H3 1); simpl in |- *; intros.
 rewrite H4; try rewrite H5; auto with v62.
 
-intros; case (le_lt_eq_dec (S n) long); auto with v62.
+intros; case (le_lt_eq_dec (S n) long) as [|H3]; auto with v62.
 intros; unfold F_Etat in |- *; simpl in |- *.
-elim H0; unfold G_Etat in |- *; intros.
-generalize (H3 n); simpl in |- *; intros.
-generalize (H3 (S n)); simpl in |- *; intros.
-generalize (H3 (S (S n))); simpl in |- *; intros.
-rewrite H4; try rewrite H5; try rewrite H6; auto with v62.
+elim H0; unfold G_Etat in |- *; intros H4.
+generalize (H4 n); simpl in |- *; intros H5.
+generalize (H4 (S n)); simpl in |- *; intros H6.
+generalize (H4 (S (S n))); simpl in |- *; intros H7.
+rewrite H5; try rewrite H6; try rewrite H7; auto with v62.
 
 intros; unfold F_Etat in |- *; simpl in |- *.
-elim H0; unfold G_Etat in |- *; intros.
-generalize (H3 n); simpl in |- *; intros.
-generalize (H3 (S n)); simpl in |- *; intros.
-rewrite <- e in H1; unfold G_Etat in H1.
-rewrite H4; auto with v62. 
-rewrite H5; auto with v62.
+elim H0; unfold G_Etat in |- *; intros H4.
+generalize (H4 n); simpl in |- *; intros H5.
+generalize (H4 (S n)); simpl in |- *; intros H6.
+rewrite <- H3 in H1; unfold G_Etat in H1.
+rewrite H5; auto with v62. 
+rewrite H6; auto with v62.
 rewrite H1; auto with v62.
 Qed.
 
