@@ -151,7 +151,7 @@ auto with v62.
 Qed.
 
 Lemma S_pred : forall x : nat, 0 < x -> x = S (pred x).
-intros; case H; intros; simpl in |- *; auto with v62.
+intros; case H; intros; simpl; auto with v62.
 Qed.
 
 Lemma plus_pred : forall n m : nat, 0 < n -> pred n + m = pred (n + m).
@@ -163,7 +163,7 @@ apply lt_plus_trans; auto with v62.
 Qed.
 
 Lemma SS_pred : forall x : nat, 1 < x -> x = S (S (pred (pred x))).
-intros; case H; intros; simpl in |- *; auto with v62.
+intros; case H; intros; simpl; auto with v62.
 apply eq_S; rewrite <- S_pred; auto with v62.
 Qed.
 
@@ -179,7 +179,7 @@ apply plus_lt_compat_r; auto with v62.
 Qed.
 
 Lemma lt_not_eq : forall n m : nat, n < m -> n <> m.
-intros; red in |- *; intros.
+intros; red; intros.
 rewrite H0 in H; absurd (m < m); auto with v62.
 Qed.
 
@@ -202,11 +202,11 @@ intros; rewrite <- plus_n_O; auto with v62.
 Qed.
 
 Lemma plus_un : forall n : nat, n + un = S n.
-intros; unfold un in |- *; rewrite <- plus_n_Sm; auto with v62.
+intros; unfold un; rewrite <- plus_n_Sm; auto with v62.
 Qed.
 
 Lemma minus_un : forall n : nat, n - un = pred n.
-intros; case n; simpl in |- *; auto with v62.
+intros; case n; simpl; auto with v62.
 Qed.
 
 Lemma Sminus_un : forall n : nat, un <= n -> S (n - un) = n.
@@ -214,11 +214,11 @@ intros; rewrite minus_un; rewrite <- S_pred; auto with v62.
 Qed.
 
 Lemma plus_deux : forall n : nat, n + deux = S (S n).
-intros; unfold deux in |- *; repeat rewrite <- plus_n_Sm; auto with v62.
+intros; unfold deux; repeat rewrite <- plus_n_Sm; auto with v62.
 Qed.
 
 Lemma minus_deux : forall n : nat, n - deux = pred (pred n).
-intros; case n; simpl in |- *; auto with v62.
+intros; case n; simpl; auto with v62.
 intros; apply minus_un; auto with v62.
 Qed.
 
@@ -227,47 +227,47 @@ intros; rewrite minus_deux; do 2 (rewrite <- S_pred; auto with v62).
 Qed.
 
 Lemma plus_trois : forall n : nat, n + trois = S (S (S n)).
-intros; unfold trois in |- *; repeat rewrite <- plus_n_Sm; auto with v62.
+intros; unfold trois; repeat rewrite <- plus_n_Sm; auto with v62.
 Qed.
 
 Lemma minus_trois : forall n : nat, n - trois = pred (pred (pred n)).
-intros; case n; simpl in |- *; auto with v62.
+intros; case n; simpl; auto with v62.
 intros; apply minus_deux; auto with v62.
 Qed.
 
 Lemma SSSminus_trois :
  forall n : nat, trois <= n -> S (S (S (n - trois))) = n.
-intros; unfold trois in |- *; rewrite Sminus_aSb; auto with v62.
+intros; unfold trois; rewrite Sminus_aSb; auto with v62.
 rewrite SSminus_deux; auto with v62.
 Qed.
 
 Lemma plus_quatre : forall n : nat, n + quatre = S (S (S (S n))).
-intros; unfold quatre in |- *; repeat rewrite <- plus_n_Sm; auto with v62.
+intros; unfold quatre; repeat rewrite <- plus_n_Sm; auto with v62.
 Qed.
 
 Lemma plus_cinq : forall n : nat, n + cinq = S (S (S (S (S n)))).
-intros; unfold cinq in |- *; rewrite <- plus_n_Sm; rewrite plus_quatre;
+intros; unfold cinq; rewrite <- plus_n_Sm; rewrite plus_quatre;
  auto with v62.
 Qed.
 
 Lemma plus_six : forall n : nat, n + six = S (S (S (S (S (S n))))).
-intros; unfold six in |- *; repeat rewrite <- plus_n_Sm; rewrite plus_zero;
+intros; unfold six; repeat rewrite <- plus_n_Sm; rewrite plus_zero;
  auto with v62.
 Qed.
 
 Lemma plus_sept : forall n : nat, n + sept = S (S (S (S (S (S (S n)))))).
-intros; unfold sept in |- *; repeat rewrite <- plus_n_Sm; rewrite plus_zero;
+intros; unfold sept; repeat rewrite <- plus_n_Sm; rewrite plus_zero;
  auto with v62.
 Qed.
 
 Lemma plus_huit : forall n : nat, n + huit = S (S (S (S (S (S (S (S n))))))).
-intros; unfold huit in |- *; repeat rewrite <- plus_n_Sm; rewrite plus_zero;
+intros; unfold huit; repeat rewrite <- plus_n_Sm; rewrite plus_zero;
  auto with v62.
 Qed.
 
 Lemma plus_neuf :
  forall n : nat, n + neuf = S (S (S (S (S (S (S (S (S n)))))))).
-intros; unfold neuf in |- *; repeat rewrite <- plus_n_Sm; rewrite plus_zero;
+intros; unfold neuf; repeat rewrite <- plus_n_Sm; rewrite plus_zero;
  auto with v62.
 Qed.
 
@@ -291,19 +291,19 @@ Section double_triple.
 Definition double (p : nat) := p + p.
 
 Lemma lt_O_double : forall n : nat, 0 < n -> 0 < double n.
-intros; unfold double in |- *; apply lt_plus_trans; auto with v62.
+intros; unfold double; apply lt_plus_trans; auto with v62.
 Qed.
 
 Lemma double_S : forall n : nat, double (S n) = S (S (double n)).
-unfold double in |- *; intros.
-rewrite <- plus_n_Sm; simpl in |- *; auto with v62.
+unfold double; intros.
+rewrite <- plus_n_Sm; simpl; auto with v62.
 Qed.
 
 Lemma le_double : forall n m : nat, double n <= double m -> n <= m.
 intros n m; case (le_lt_dec n m); intros; auto with v62.
 absurd (double n <= double m); auto with v62.
 apply lt_not_le.
-unfold double in |- *; apply lt_trans with (m := n + m).
+unfold double; apply lt_trans with (m := n + m).
 apply plus_lt_compat_r; auto with v62.
 
 apply plus_lt_compat_l; auto with v62.
@@ -313,7 +313,7 @@ Lemma le_S_double : forall n m : nat, double n <= S (double m) -> n <= m.
 intros n m; case (le_lt_dec n m); intros; auto with v62.
 absurd (double n <= S (double m)); auto with v62.
 apply lt_not_le.
-unfold double in |- *; apply le_lt_trans with (m := n + m).
+unfold double; apply le_lt_trans with (m := n + m).
 apply lt_le_S; apply plus_lt_compat_r; auto with v62.
 
 apply plus_lt_compat_l; auto with v62.
@@ -324,32 +324,32 @@ Definition triple (p : nat) := p + p + p.
 Lemma le_triple : forall n m : nat, triple n <= triple m -> n <= m.
 intros n m; case (le_lt_dec n m); intros; auto with v62.
 absurd (triple m < triple n); auto with v62.
-unfold triple in |- *; repeat (apply lt_plus_plus; auto with v62).
+unfold triple; repeat (apply lt_plus_plus; auto with v62).
 Qed.
 
 Lemma lt_triple : forall n m : nat, triple n < triple m -> n < m.
 intros n m; case (le_lt_dec m n); intros; auto with v62.
 absurd (triple m <= triple n); auto with v62.
-unfold triple in |- *; repeat (apply plus_le_compat; auto with v62).
+unfold triple; repeat (apply plus_le_compat; auto with v62).
 Qed.
 
 Lemma triple_S : forall n : nat, triple (S n) = S (S (S (triple n))).
-intros; unfold triple in |- *; repeat rewrite <- plus_n_Sm; auto with v62.
+intros; unfold triple; repeat rewrite <- plus_n_Sm; auto with v62.
 Qed.
 
 Lemma le_n_triplem : forall n m : nat, n <= m -> n <= triple m.
-intros; unfold triple in |- *; do 2 apply le_plus_trans; auto with v62.
+intros; unfold triple; do 2 apply le_plus_trans; auto with v62.
 Qed.
 
 Lemma le_SSS_triple : forall n : nat, deux <= n -> S (S (S n)) <= triple n.
-intros; rewrite <- (plus_trois n); rewrite plus_comm; unfold triple in |- *;
+intros; rewrite <- (plus_trois n); rewrite plus_comm; unfold triple;
  apply plus_le_compat_r.
 apply le_trans with (m := deux + deux); auto with v62.
 apply plus_le_compat; auto with v62.
 Qed.
 
 Lemma le_double_triple : forall n : nat, double n <= triple n.
-intro; unfold double, triple in |- *; apply le_plus_l.
+intro; unfold double, triple; apply le_plus_l.
 Qed.
 
 End double_triple.
@@ -425,13 +425,13 @@ Definition Unmod3 (n : nat) := reste3 n = 1.
 Definition Deuxmod3 (n : nat) := reste3 n = 2.
 
 Lemma le_tiers_Stiers : forall n : nat, tiers n <= tiers (S n).
-intros; unfold tiers in |- *; simpl in |- *; case (quotient3 n);
- simpl in |- *; intros; auto with v62.
+intros; unfold tiers; simpl; case (quotient3 n);
+ simpl; intros; auto with v62.
 Qed.
 
 Lemma triple_tiers :
  forall n : nat, Omod3 n -> tiers n + tiers n + tiers n = n.
-intros n; unfold Omod3, reste3, tiers in |- *; case (quotient3 n);
+intros n; unfold Omod3, reste3, tiers; case (quotient3 n);
  auto with v62.
 intros; absurd (1 = 0); auto with v62.
 
@@ -440,7 +440,7 @@ Qed.
 
 Lemma Striple_tiers :
  forall n : nat, Unmod3 n -> S (tiers n + tiers n + tiers n) = n.
-intros n; unfold Unmod3, reste3, tiers in |- *; case (quotient3 n);
+intros n; unfold Unmod3, reste3, tiers; case (quotient3 n);
  auto with v62.
 intros; absurd (0 = 1); auto with v62.
 
@@ -449,7 +449,7 @@ Qed.
 
 Lemma SStriple_tiers :
  forall n : nat, Deuxmod3 n -> S (S (tiers n + tiers n + tiers n)) = n.
-intros n; unfold Deuxmod3, reste3, tiers in |- *; case (quotient3 n);
+intros n; unfold Deuxmod3, reste3, tiers; case (quotient3 n);
  auto with v62.
 intros; absurd (0 = 2); auto with v62.
 
@@ -458,92 +458,92 @@ Qed.
 
 Lemma plus_deuxtiers_untiers :
  forall n : nat, Omod3 n -> double (tiers n) + tiers n = n.
-intros; unfold double in |- *; apply triple_tiers; auto with v62.
+intros; unfold double; apply triple_tiers; auto with v62.
 Qed.
 
 Lemma Splus_deuxtiers_untiers :
  forall n : nat, Unmod3 n -> S (double (tiers n) + tiers n) = n.
-intros; unfold double in |- *; apply Striple_tiers; auto with v62.
+intros; unfold double; apply Striple_tiers; auto with v62.
 Qed.
 
 Lemma SSplus_deuxtiers_untiers :
  forall n : nat, Deuxmod3 n -> S (S (double (tiers n) + tiers n)) = n.
-intros; unfold double in |- *; apply SStriple_tiers; auto with v62.
+intros; unfold double; apply SStriple_tiers; auto with v62.
 Qed.
 
 Lemma lt_tiersn_n : forall n : nat, 0 < n -> tiers n < n.
-intros n; unfold tiers in |- *; case (quotient3 n); intros q He; rewrite He.
-case q; unfold triple in |- *.
-simpl in |- *; intros; absurd (0 < 0); auto with v62.
+intros n; unfold tiers; case (quotient3 n); intros q He; rewrite He.
+case q; unfold triple.
+simpl; intros; absurd (0 < 0); auto with v62.
 
-intros; apply lt_plus_trans; pattern (S n0) at 1 in |- *;
+intros; apply lt_plus_trans; pattern (S n0) at 1;
  rewrite <- (plus_zero (S n0)).
 apply plus_lt_compat_l; auto with v62.
 
-intros; pattern q at 1 in |- *; rewrite <- (plus_zero q);
- unfold triple in |- *.
+intros; pattern q at 1; rewrite <- (plus_zero q);
+ unfold triple.
 rewrite plus_assoc_reverse; rewrite plus_n_Sm; apply plus_lt_compat_l;
  auto with v62.
 
-intros; pattern q at 1 in |- *; rewrite <- (plus_zero q);
- unfold triple in |- *.
+intros; pattern q at 1; rewrite <- (plus_zero q);
+ unfold triple.
 rewrite plus_assoc_reverse; do 2 rewrite plus_n_Sm; apply plus_lt_compat_l;
  auto with v62.
 Qed.
 
 Lemma lt_deuxtiersn_n : forall n : nat, 0 < n -> double (tiers n) < n.
-intros n; unfold tiers in |- *; case (quotient3 n); intros q He; rewrite He.
-case q; unfold double, triple in |- *.
-simpl in |- *; intros; absurd (0 < 0); auto with v62.
+intros n; unfold tiers; case (quotient3 n); intros q He; rewrite He.
+case q; unfold double, triple.
+simpl; intros; absurd (0 < 0); auto with v62.
 
-intros; pattern (S n0 + S n0) at 1 in |- *;
+intros; pattern (S n0 + S n0) at 1;
  rewrite <- (plus_zero (S n0 + S n0)); apply plus_lt_compat_l; 
  auto with v62.
 
-intros; unfold double, triple in |- *; pattern (q + q) at 1 in |- *;
+intros; unfold double, triple; pattern (q + q) at 1;
  rewrite <- (plus_zero (q + q)); rewrite plus_n_Sm; 
  apply plus_lt_compat_l; auto with v62.
 
-intros; unfold double, triple in |- *; pattern (q + q) at 1 in |- *;
+intros; unfold double, triple; pattern (q + q) at 1;
  rewrite <- (plus_zero (q + q)); do 2 rewrite plus_n_Sm;
  apply plus_lt_compat_l; auto with v62.
 Qed.
 
 Lemma lt_Sdeuxtiersn_n :
  forall n : nat, trois < n -> S (double (tiers n)) < n.
-intros n; unfold tiers in |- *; case (quotient3 n); intros q He; rewrite He.
-case q; unfold double, triple in |- *.
-simpl in |- *; intros; absurd (trois < 0); auto with v62.
+intros n; unfold tiers; case (quotient3 n); intros q He; rewrite He.
+case q; unfold double, triple.
+simpl; intros; absurd (trois < 0); auto with v62.
 
 clear He q n; intros n; case n.
-simpl in |- *; intros; absurd (trois < trois); auto with v62.
+simpl; intros; absurd (trois < trois); auto with v62.
 
 clear n; intros; rewrite <- (plus_un (S (S n) + S (S n)));
- apply plus_lt_compat_l; unfold un in |- *; auto with v62.
+ apply plus_lt_compat_l; unfold un; auto with v62.
 
-case q; unfold double, triple in |- *.
-simpl in |- *; intros; absurd (deux < 0); auto with v62.
+case q; unfold double, triple.
+simpl; intros; absurd (deux < 0); auto with v62.
 
-clear He n; intros; apply lt_n_S; pattern (S n + S n) at 1 in |- *;
+clear He n; intros; apply lt_n_S; pattern (S n + S n) at 1;
  rewrite <- (plus_zero (S n + S n)); apply plus_lt_compat_l; 
  auto with v62.
 
-case q; unfold double, triple in |- *.
-simpl in |- *; intros; absurd (un < 0); auto with v62.
+case q; unfold double, triple.
+simpl; intros; absurd (un < 0); auto with v62.
 do 2 apply lt_S_n; auto with v62.
 
 clear He n; intros; apply lt_n_S; rewrite plus_n_Sm;
- pattern (S n + S n) at 1 in |- *; rewrite <- (plus_zero (S n + S n));
+ pattern (S n + S n) at 1; rewrite <- (plus_zero (S n + S n));
  apply plus_lt_compat_l; auto with v62.
 Qed.
 
 Lemma le_deuxtiers_un : forall a : nat, double (tiers a) <= a.
-intros; unfold double, tiers in |- *; case (quotient3 a); simpl in |- *;
- intros q He; rewrite He; unfold triple in |- *; auto with v62.
+intros; unfold double, tiers; case (quotient3 a); simpl;
+ intros q He; rewrite He; unfold triple; auto with v62.
 Qed.
 
 Lemma le_troistiers_un : forall n : nat, triple (tiers n) <= n.
-intros; unfold tiers in |- *; case (quotient3 n); intros q ->; auto with v62.
+intros; unfold tiers; case (quotient3 n); intros q ->; auto with v62.
 Qed.
 
 Lemma lt_O_tiers : forall n : nat, deux < n -> 0 < tiers n.
@@ -554,45 +554,45 @@ do 2 apply lt_S_n; auto with v62.
 Qed.
 
 Lemma lt_O_deuxtiers : forall n : nat, trois <= n -> 0 < double (tiers n).
-unfold double in |- *; intros; apply lt_plus_trans; apply lt_O_tiers;
+unfold double; intros; apply lt_plus_trans; apply lt_O_tiers;
  auto with v62.
 Qed.
 
 Lemma Omod3_Unmod3 : forall n : nat, Omod3 n -> Unmod3 (S n).
-intros n; unfold Omod3, Unmod3, reste3 in |- *; simpl in |- *;
- case (quotient3 n); simpl in |- *; auto with v62.
+intros n; unfold Omod3, Unmod3, reste3; simpl;
+ case (quotient3 n); simpl; auto with v62.
 intros; absurd (2 = 0); auto with v62.
 Qed.
 
 Lemma Unmod3_Deuxmod3 : forall n : nat, Unmod3 n -> Deuxmod3 (S n).
-intros n; unfold Unmod3, Deuxmod3, reste3 in |- *; simpl in |- *;
- case (quotient3 n); simpl in |- *; auto with v62.
+intros n; unfold Unmod3, Deuxmod3, reste3; simpl;
+ case (quotient3 n); simpl; auto with v62.
 intros; absurd (2 = 1); auto with v62.
 Qed.
 
 Lemma Deuxmod3_Omod3 : forall n : nat, Deuxmod3 n -> Omod3 (S n).
-intros n; unfold Deuxmod3, Omod3, reste3 in |- *; simpl in |- *;
- case (quotient3 n); simpl in |- *; auto with v62.
+intros n; unfold Deuxmod3, Omod3, reste3; simpl;
+ case (quotient3 n); simpl; auto with v62.
 intros; absurd (0 = 2); auto with v62.
 
 intros; absurd (1 = 2); auto with v62.
 Qed.
 
 Lemma tiers_S : forall n : nat, Omod3 n -> tiers n = tiers (S n).
-intros n; unfold Omod3, reste3, tiers in |- *; simpl in |- *;
- case (quotient3 n); simpl in |- *; auto with v62.
+intros n; unfold Omod3, reste3, tiers; simpl;
+ case (quotient3 n); simpl; auto with v62.
 intros; absurd (2 = 0); auto with v62.
 Qed.
 
 Lemma tiers_SS : forall n : nat, Unmod3 n -> tiers n = tiers (S n).
-intros n; unfold Unmod3, reste3, tiers in |- *; simpl in |- *;
- case (quotient3 n); simpl in |- *; auto with v62.
+intros n; unfold Unmod3, reste3, tiers; simpl;
+ case (quotient3 n); simpl; auto with v62.
 intros; absurd (2 = 1); auto with v62.
 Qed.
 
 Lemma tiers_SSS : forall n : nat, Deuxmod3 n -> S (tiers n) = tiers (S n).
-intros n; unfold Deuxmod3, reste3, tiers in |- *; simpl in |- *;
- case (quotient3 n); simpl in |- *; auto with v62.
+intros n; unfold Deuxmod3, reste3, tiers; simpl;
+ case (quotient3 n); simpl; auto with v62.
 intros; absurd (0 = 2); auto with v62.
 
 intros; absurd (1 = 2); auto with v62.
@@ -600,7 +600,7 @@ Qed.
 
 Lemma le_tiers_trois : forall n : nat, trois <= n -> un <= tiers n.
 intros; elim H.
-unfold tiers, trois in |- *; auto with v62.
+unfold tiers, trois; auto with v62.
 
 intros; apply le_trans with (m := tiers m); auto with v62.
 apply le_tiers_Stiers.
@@ -608,7 +608,7 @@ Qed.
 
 Lemma le_tiers_six : forall n : nat, six <= n -> deux <= tiers n.
 intros; elim H.
-unfold tiers, six in |- *; auto with v62.
+unfold tiers, six; auto with v62.
 
 intros; apply le_trans with (m := tiers m); auto with v62.
 apply le_tiers_Stiers.

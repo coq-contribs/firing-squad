@@ -49,11 +49,11 @@ Hypothesis He : quatre_end t x.
 Hypothesis Hv : Verticale (S t) (x + quatre) trois G_Etat.
 
 Lemma C23 : C_Etat (S (S t)) (S (S (S x))).
-elim He; unfold L_Etat in |- *; elim Hv; intros.
-elim H2; unfold A_Etat in |- *; intros.
+elim He; unfold L_Etat; elim Hv; intros.
+elim H2; unfold A_Etat; intros.
 generalize (H 0); rewrite plus_zero; rewrite plus_quatre;
- unfold trois, G_Etat in |- *; intros.
-unfold C_Etat in |- *; rewrite un_pas; rewrite H1; rewrite H3; rewrite H6;
+ unfold trois, G_Etat; intros.
+unfold C_Etat; rewrite un_pas; rewrite H1; rewrite H3; rewrite H6;
  auto with v62.
 Qed.
 
@@ -112,25 +112,25 @@ Hypothesis He : cinq_end t x.
 Hypothesis Hv : Verticale (S t) (x + cinq) quatre G_Etat.
 
 Lemma A24 : A_Etat (S (S t)) (S (S (S (S x)))).
-elim He; unfold L_Etat, G_Etat in |- *; elim Hv; intros.
+elim He; unfold L_Etat, G_Etat; elim Hv; intros.
 generalize (H 0); rewrite plus_zero; rewrite plus_cinq;
- unfold quatre, G_Etat in |- *; intros.
-unfold A_Etat in |- *; rewrite un_pas; rewrite H1; rewrite H2; rewrite H5;
+ unfold quatre, G_Etat; intros.
+unfold A_Etat; rewrite un_pas; rewrite H1; rewrite H2; rewrite H5;
  auto with v62.
 Qed.
 
 Lemma B33 : B_Etat (S (S (S t))) (S (S (S x))).
-elim He; unfold B_Etat in |- *; intros; elim H3; unfold A_Etat in |- *;
+elim He; unfold B_Etat; intros; elim H3; unfold A_Etat;
  intros.
-generalize A24; unfold A_Etat in |- *; intros.
+generalize A24; unfold A_Etat; intros.
 rewrite un_pas; rewrite H2; rewrite H4; rewrite H7; auto with v62.
 Qed.
 
 Lemma C34 : C_Etat (S (S (S t))) (S (S (S (S x)))).
-generalize A24; elim He; unfold B_Etat, A_Etat in |- *; elim Hv; intros.
+generalize A24; elim He; unfold B_Etat, A_Etat; elim Hv; intros.
 generalize (H un); rewrite plus_un; rewrite plus_cinq;
- unfold un, quatre, G_Etat in |- *; intros.
-unfold C_Etat in |- *; rewrite un_pas; rewrite H3; rewrite H5; rewrite H6;
+ unfold un, quatre, G_Etat; intros.
+unfold C_Etat; rewrite un_pas; rewrite H3; rewrite H5; rewrite H6;
  auto with v62.
 Qed.
 
@@ -152,9 +152,9 @@ Qed.
 
 Lemma G44 : G_Etat (S (S (S (S t)))) (S (S (S (S x)))).
 generalize B33; generalize C34; elim Hv;
- unfold B_Etat, C_Etat, G_Etat in |- *; intros.
+ unfold B_Etat, C_Etat, G_Etat; intros.
 generalize (H deux); rewrite plus_deux; rewrite plus_cinq;
- unfold deux, quatre in |- *; intros.
+ unfold deux, quatre; intros.
 rewrite un_pas; rewrite H0; rewrite H1; rewrite H2; auto with v62.
 Qed.
 
@@ -181,10 +181,10 @@ apply B43.
 
 apply G44.
 
-generalize B43; generalize G44; elim Hv; unfold B_Etat, G_Etat in |- *;
+generalize B43; generalize G44; elim Hv; unfold B_Etat, G_Etat;
  intros.
 generalize (H trois); rewrite plus_trois; rewrite plus_cinq;
- unfold trois, quatre in |- *; intros.
+ unfold trois, quatre; intros.
 rewrite un_pas; rewrite H0; rewrite H1; rewrite H2; auto with v62.
 Qed.
 
@@ -197,7 +197,7 @@ Section cas_general.
 Lemma R1 : forall n : nat, six <= n -> pred (double (tiers n)) < n.
 intros; apply lt_le_trans with (m := double (tiers n)).
 apply lt_pred_n_n; apply lt_O_deuxtiers; apply le_trans with (m := six);
- unfold trois, six in |- *; auto with v62.
+ unfold trois, six; auto with v62.
 
 apply le_deuxtiers_un.
 Qed.
@@ -211,7 +211,7 @@ intros; rewrite plus_assoc_reverse; rewrite <- plus_Snm_nSm;
 rewrite plus_deuxtiers_untiers; auto with v62.
 
 apply lt_O_deuxtiers; apply le_trans with (m := six);
- unfold trois, six in |- *; auto with v62.
+ unfold trois, six; auto with v62.
 Qed.
 
 Lemma R4 :
@@ -234,12 +234,12 @@ intros; rewrite plus_assoc_reverse; rewrite plus_n_Sm; auto with v62.
 Qed.
 
 Lemma R53 : forall n : nat, cinq <= n -> trois <= n.
-intros; apply le_trans with (m := cinq); unfold trois, cinq in |- *;
+intros; apply le_trans with (m := cinq); unfold trois, cinq;
  auto with v62.
 Qed.
 
 Lemma R76 : forall n : nat, sept <= n -> six <= n.
-intros; apply le_trans with (m := sept); unfold six, sept in |- *;
+intros; apply le_trans with (m := sept); unfold six, sept;
  auto with v62.
 Qed.
 
@@ -274,12 +274,12 @@ apply R1; auto with v62.
 
 apply Ha_Vg; auto with v62.
 rewrite R2; auto with v62.
-unfold triple in |- *; rewrite triple_tiers; auto with v62.
+unfold triple; rewrite triple_tiers; auto with v62.
 
 generalize (le_tiers_six cote H); intros.
-generalize H3; pattern cote at 1 2 in |- *; rewrite <- (triple_tiers cote).
+generalize H3; pattern cote at 1 2; rewrite <- (triple_tiers cote).
 generalize H1; inversion H4.
-unfold double, deux in |- *; simpl in |- *.
+unfold double, deux; simpl.
 intros; rewrite (plus_n_Sm t); rewrite <- (plus_n_Sm x); apply Ha3_Hg;
  auto with v62.
 rewrite plus_trois; rewrite plus_quatre; rewrite <- (plus_six x);
@@ -291,12 +291,12 @@ rewrite H5; apply lt_tiersn_n; apply lt_trans with (m := 5); auto with v62.
 rewrite <- (plus_n_Sm x); rewrite <- S_pred.
 apply Ha_DD; auto with v62.
 rewrite plus_assoc_reverse; rewrite <- plus_Snm_nSm;
- unfold double, triple in |- *; rewrite <- S_pred; 
+ unfold double, triple; rewrite <- S_pred; 
  auto with v62.
 
-unfold double in |- *; auto with v62.
+unfold double; auto with v62.
 
-rewrite plus_assoc_reverse; unfold double in |- *; rewrite <- S_pred;
+rewrite plus_assoc_reverse; unfold double; rewrite <- S_pred;
  auto with v62.
 apply inclus_vert with (t := S t) (haut := S m + S m + S m); auto with v62.
 rewrite <- plus_S; repeat rewrite plus_assoc_reverse; auto with v62.
@@ -304,7 +304,7 @@ rewrite <- plus_S; repeat rewrite plus_assoc_reverse; auto with v62.
 auto with v62.
 
 apply lt_O_deuxtiers; apply le_trans with (m := six);
- unfold trois, six in |- *; auto with v62.
+ unfold trois, six; auto with v62.
 
 rewrite <- (Splus_deuxtiers_untiers cote); auto with v62.
 do 2 rewrite <- plus_S; apply hh_hor.
@@ -312,35 +312,35 @@ rewrite plus_S; rewrite (plus_comm (S (double (tiers cote))) (tiers cote));
  rewrite <- plus_Snm_nSm; rewrite plus_assoc; apply Hr; 
  auto with v62.
 apply lt_deuxtiersn_n; apply lt_le_trans with (m := sept);
- unfold sept in |- *; auto with v62.
+ unfold sept; auto with v62.
 
 apply Hb_Vg; auto with v62.
 rewrite plus_assoc_reverse; rewrite <- plus_n_Sm;
  rewrite Splus_deuxtiers_untiers; auto with v62.
-unfold triple in |- *; rewrite Striple_tiers; auto with v62.
+unfold triple; rewrite Striple_tiers; auto with v62.
 
 generalize (R76 cote H); intros.
 generalize (le_tiers_six cote H4); intros.
-generalize H3; pattern cote at 1 2 in |- *; rewrite <- (Striple_tiers cote);
+generalize H3; pattern cote at 1 2; rewrite <- (Striple_tiers cote);
  auto with v62.
 generalize H1; inversion H5.
-unfold double, deux in |- *; rewrite plus_quatre; rewrite plus_sept;
- simpl in |- *; intros.
+unfold double, deux; rewrite plus_quatre; rewrite plus_sept;
+ simpl; intros.
 rewrite plus_n_Sm; rewrite plus_cinq; apply Hb3_Hg; auto with v62.
 rewrite plus_quatre; auto with v62.
 
 intros; rewrite plus_S; rewrite plus_assoc; apply Hr.
 rewrite H6; apply lt_tiersn_n; apply lt_le_trans with (m := six);
- unfold six in |- *; auto with v62.
+ unfold six; auto with v62.
 
 rewrite <- (plus_n_Sm x); apply Hb_DD; auto with v62.
-rewrite R4; unfold triple in |- *; auto with v62.
+rewrite R4; unfold triple; auto with v62.
 
 rewrite <- (plus_n_Sm x); rewrite plus_Snm_nSm; rewrite R4;
  apply inclus_vert with (t := S t) (haut := S (S m + S m + S m));
  auto with v62.
-unfold double in |- *; simpl in |- *; rewrite plus_assoc_reverse;
- simpl in |- *; auto with v62.
+unfold double; simpl; rewrite plus_assoc_reverse;
+ simpl; auto with v62.
 
 rewrite <- (SSplus_deuxtiers_untiers cote); auto with v62.
 do 3 rewrite <- plus_S; apply hh_hor.
@@ -351,40 +351,40 @@ apply lt_Sdeuxtiersn_n; auto with v62.
 
 apply Hc_Vg; auto with v62.
 rewrite R5; auto with v62.
-unfold triple in |- *; rewrite SStriple_tiers; auto with v62.
+unfold triple; rewrite SStriple_tiers; auto with v62.
 
 generalize (R53 cote H); intros.
 generalize (le_tiers_trois cote H4); intros.
-generalize H3; pattern cote at 1 2 in |- *; rewrite <- (SStriple_tiers cote);
+generalize H3; pattern cote at 1 2; rewrite <- (SStriple_tiers cote);
  auto with v62.
 generalize H1; inversion H5.
-unfold double, un in |- *; simpl in |- *; rewrite plus_trois;
+unfold double, un; simpl; rewrite plus_trois;
  rewrite plus_cinq; intros.
 rewrite plus_n_Sm; rewrite plus_quatre; apply Hc2_Hg; auto with v62.
 rewrite plus_trois; auto with v62.
 
 inversion H7.
-unfold double, un in |- *; simpl in |- *; rewrite plus_cinq;
+unfold double, un; simpl; rewrite plus_cinq;
  rewrite plus_huit; intros.
 rewrite plus_n_Sm; rewrite plus_six; apply Hc3_Hg; auto with v62.
 rewrite plus_quatre; auto with v62.
 
 intros; rewrite plus_S; rewrite plus_assoc; apply Hr.
 rewrite H9; rewrite H6; apply lt_tiersn_n;
- apply lt_le_trans with (m := trois); unfold trois in |- *; 
+ apply lt_le_trans with (m := trois); unfold trois; 
  auto with v62.
 
 rewrite <- (plus_n_Sm x); apply Hc_DD; auto with v62.
-unfold deux in |- *; auto with v62.
+unfold deux; auto with v62.
 
-rewrite R6; unfold triple in |- *; auto with v62.
+rewrite R6; unfold triple; auto with v62.
 
 rewrite <- (plus_n_Sm x); rewrite plus_Snm_nSm; rewrite R6.
 apply
  inclus_vert with (t := S t) (haut := S (S (S (S m0) + S (S m0) + S (S m0))));
  auto with v62.
-unfold double in |- *; simpl in |- *; rewrite plus_assoc_reverse;
- simpl in |- *; auto with v62.
+unfold double; simpl; rewrite plus_assoc_reverse;
+ simpl; auto with v62.
 Qed.
 
 End cas_general.
@@ -398,24 +398,24 @@ Lemma Hg_Hf :
  G_Etat t (S long) -> Horizontale (S t) 0 long F_Etat.
 intros; apply make_horizontale.
 intros dx; case dx.
-intros; unfold F_Etat in |- *; simpl in |- *.
-elim H0; unfold G_Etat in |- *; intros.
-generalize (H3 0); simpl in |- *; intros.
-generalize (H3 1); simpl in |- *; intros.
+intros; unfold F_Etat; simpl.
+elim H0; unfold G_Etat; intros.
+generalize (H3 0); simpl; intros.
+generalize (H3 1); simpl; intros.
 rewrite H4; try rewrite H5; auto with v62.
 
 intros; case (le_lt_eq_dec (S n) long) as [|H3]; auto with v62.
-intros; unfold F_Etat in |- *; simpl in |- *.
-elim H0; unfold G_Etat in |- *; intros H4.
-generalize (H4 n); simpl in |- *; intros H5.
-generalize (H4 (S n)); simpl in |- *; intros H6.
-generalize (H4 (S (S n))); simpl in |- *; intros H7.
+intros; unfold F_Etat; simpl.
+elim H0; unfold G_Etat; intros H4.
+generalize (H4 n); simpl; intros H5.
+generalize (H4 (S n)); simpl; intros H6.
+generalize (H4 (S (S n))); simpl; intros H7.
 rewrite H5; try rewrite H6; try rewrite H7; auto with v62.
 
-intros; unfold F_Etat in |- *; simpl in |- *.
-elim H0; unfold G_Etat in |- *; intros H4.
-generalize (H4 n); simpl in |- *; intros H5.
-generalize (H4 (S n)); simpl in |- *; intros H6.
+intros; unfold F_Etat; simpl.
+elim H0; unfold G_Etat; intros H4.
+generalize (H4 n); simpl; intros H5.
+generalize (H4 (S n)); simpl; intros H6.
 rewrite <- H3 in H1; unfold G_Etat in H1.
 rewrite H5; auto with v62. 
 rewrite H6; auto with v62.

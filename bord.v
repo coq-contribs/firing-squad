@@ -134,13 +134,13 @@ Lemma deux_quatre :
  deux_end t x ->
  L_Etat t (S (S x)) ->
  L_Etat t (S (S (S x))) -> L_Etat (S t) (S (S (S x))) -> quatre_end t x.
-intros t x H; elim H; unfold B_Etat, C_Etat, L_Etat in |- *; intros;
+intros t x H; elim H; unfold B_Etat, C_Etat, L_Etat; intros;
  apply make_quatre_end; auto with v62.
 apply (Rec3 _ _ _ _ (deux_trois t x)); auto with v62.
-unfold A_Etat in |- *; rewrite un_pas; rewrite H0; rewrite H3; rewrite H4;
+unfold A_Etat; rewrite un_pas; rewrite H0; rewrite H3; rewrite H4;
  auto with v62.
 
-unfold A_Etat, G_Etat in |- *; intros; rewrite un_pas; rewrite H1; rewrite H6;
+unfold A_Etat, G_Etat; intros; rewrite un_pas; rewrite H1; rewrite H6;
  rewrite H5; auto with v62.
 Qed.
 
@@ -149,9 +149,9 @@ Lemma trois_quatre :
  trois_end t x ->
  L_Etat (S t) (S (S (S x))) ->
  L_Etat (S (S t)) (S (S (S x))) -> trois_end (S (S t)) x.
-intros t x H; elim H; clear H; unfold A_Etat, L_Etat, G_Etat in |- *; intros.
+intros t x H; elim H; clear H; unfold A_Etat, L_Etat, G_Etat; intros.
 apply (Rec3 _ _ _ _ (deux_trois (S t) x)); auto with v62; elim H1; clear H1;
- unfold A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; 
+ unfold A_Etat, B_Etat, C_Etat, G_Etat; intros; 
  rewrite un_pas.
 rewrite H0; rewrite H1; rewrite H2; auto with v62.
 
@@ -163,9 +163,9 @@ Lemma trois_cinq :
  trois_end t x ->
  G_Etat (S t) (S (S (S x))) ->
  B_Etat (S (S t)) (S (S (S x))) -> trois_end (S (S t)) x.
-intros t x H; elim H; clear H; unfold A_Etat, B_Etat, G_Etat in |- *; intros.
+intros t x H; elim H; clear H; unfold A_Etat, B_Etat, G_Etat; intros.
 apply (Rec3 _ _ _ _ (deux_trois (S t) x)); auto with v62; elim H1; clear H1;
- unfold A_Etat, B_Etat, C_Etat, G_Etat, un, deux in |- *; 
+ unfold A_Etat, B_Etat, C_Etat, G_Etat, un, deux; 
  intros; rewrite un_pas.
 rewrite H0; rewrite H1; rewrite H2; auto with v62.
 
@@ -190,14 +190,14 @@ Lemma cinq_cinq :
  cinq_end t x ->
  L_Etat (S (S t)) (S (S (S (S x)))) ->
  L_Etat (S (S (S t))) (S (S (S (S x)))) -> cinq_end (S (S t)) x.
-intros t x H; elim H; clear H; unfold L_Etat, B_Etat, G_Etat in |- *; intros.
+intros t x H; elim H; clear H; unfold L_Etat, B_Etat, G_Etat; intros.
 apply (Rec5' _ _ _ _ _ _ (make_cinq_end (S (S t)) x));
- unfold B_Etat, G_Etat, L_Etat in |- *; auto with v62.
-elim H3; clear H H0 H1 H3; unfold A_Etat, G_Etat in |- *; intros;
+ unfold B_Etat, G_Etat, L_Etat; auto with v62.
+elim H3; clear H H0 H1 H3; unfold A_Etat, G_Etat; intros;
  rewrite un_pas.
 rewrite H; rewrite H2; rewrite H4; auto with v62.
 
-elim H3; clear H H0 H1 H3; unfold G_Etat in |- *; intros; rewrite un_pas.
+elim H3; clear H H0 H1 H3; unfold G_Etat; intros; rewrite un_pas.
 rewrite H0; rewrite H6; rewrite H5; auto with v62.
 
 intros; apply trois_cinq; auto with v62.
@@ -212,17 +212,17 @@ Lemma quatre_cinq :
  quatre_end t x ->
  L_Etat (S t) (S (S (S (S x)))) ->
  L_Etat (S (S t)) (S (S (S (S x)))) -> cinq_end (S t) x.
-intros t x H; elim H; clear H; unfold L_Etat, B_Etat, G_Etat in |- *; intros.
+intros t x H; elim H; clear H; unfold L_Etat, B_Etat, G_Etat; intros.
 apply (Rec5' _ _ _ _ _ _ (make_cinq_end (S t) x)).
-unfold L_Etat in |- *; auto with v62.
+unfold L_Etat; auto with v62.
 
-unfold L_Etat in |- *; auto with v62.
+unfold L_Etat; auto with v62.
 
-elim H1; clear H H1; unfold A_Etat, L_Etat, G_Etat in |- *; intros;
+elim H1; clear H H1; unfold A_Etat, L_Etat, G_Etat; intros;
  rewrite un_pas.
 rewrite H; rewrite H0; rewrite H2; auto with v62.
 
-elim H1; clear H H1; unfold B_Etat, L_Etat, G_Etat in |- *; intros;
+elim H1; clear H H1; unfold B_Etat, L_Etat, G_Etat; intros;
  rewrite un_pas.
 rewrite H1; rewrite H6; rewrite H3; auto with v62.
 
@@ -235,25 +235,25 @@ Lemma cinq_quatre :
  L_Etat (S t) (x + cinq) ->
  L_Etat (S (S t)) (x + cinq) ->
  C_basic (S t) (x + trois) deux /\ quatre_end (S (S (S t))) x.
-intros t x H; elim H; clear H; unfold L_Etat, B_Etat, G_Etat in |- *;
+intros t x H; elim H; clear H; unfold L_Etat, B_Etat, G_Etat;
  rewrite plus_trois; rewrite plus_cinq; intros; apply and_impl.
-elim H3; clear H H3; unfold A_Etat, G_Etat in |- *; intros;
+elim H3; clear H H3; unfold A_Etat, G_Etat; intros;
  apply (Rec3 _ _ _ _ (make_C_basic (S t) (S (S (S x))) deux)).
 auto with v62.
 
 apply (Rec3 _ _ _ _ (deux_Diag L_Etat C_Etat (S t) (S (S (S x))))).
-unfold L_Etat in |- *; auto with v62.
+unfold L_Etat; auto with v62.
 
-unfold C_Etat in |- *; rewrite un_pas.
+unfold C_Etat; rewrite un_pas.
 rewrite H1; rewrite H0; rewrite H4; auto with v62.
 
-elim H6; clear H6; unfold A_Etat, L_Etat, C_Etat in |- *; intros;
+elim H6; clear H6; unfold A_Etat, L_Etat, C_Etat; intros;
  rewrite un_pas.
 rewrite H; rewrite H2; rewrite H9; auto with v62.
 
 clear H H0 H1 H4; intros H;
  apply (Rec3 _ _ _ _ (deux_Diag L_Etat C_Etat (S (S t)) (S (S (S x)))));
- elim H; clear H; unfold L_Etat, C_Etat in |- *; do 2 rewrite plus_deux;
+ elim H; clear H; unfold L_Etat, C_Etat; do 2 rewrite plus_deux;
  intros.
 auto with v62.
 

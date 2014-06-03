@@ -40,27 +40,27 @@ Require Export vertical.
 Section trapezes.
 
 Lemma R1 : forall n : nat, un < n -> double n = 3 + S (double (S n - trois)).
-intros; rewrite minus_trois; simpl in |- *; unfold double in |- *.
+intros; rewrite minus_trois; simpl; unfold double.
 do 2 rewrite plus_n_Sm; do 2 rewrite <- plus_S; rewrite <- SS_pred;
  auto with v62.
 Qed.
 
 Lemma R1' :
  forall n : nat, un < n -> pred (double n) = 2 + S (double (S n - trois)).
-intros; rewrite minus_trois; simpl in |- *; unfold double in |- *.
+intros; rewrite minus_trois; simpl; unfold double.
 apply eq_add_S; do 2 rewrite plus_n_Sm; do 2 rewrite <- plus_S;
  rewrite <- SS_pred; auto with v62.
 rewrite <- S_pred; auto with v62.
 Qed.
 
 Lemma R2 : forall n : nat, deux < n -> 0 < S n - trois.
-unfold deux in |- *; intros; rewrite minus_trois; simpl in |- *.
+unfold deux; intros; rewrite minus_trois; simpl.
 do 2 (apply lt_S_n; rewrite <- S_pred; auto with v62).
 apply lt_trans with (m := un); auto with v62.
 Qed.
 
 Lemma R3 : forall n : nat, deux < n -> n = S (S (S (pred (S n - trois)))).
-intros; rewrite minus_trois; simpl in |- *; rewrite <- minus_trois;
+intros; rewrite minus_trois; simpl; rewrite <- minus_trois;
  rewrite SSSminus_trois; auto with v62.
 Qed.
 
@@ -81,10 +81,10 @@ Lemma H2_Hh : Horizontale_t1 (S t) x 0 G_Etat B_Etat G_Etat.
 elim (Ht1_End2 t x 0); auto with v62; intros; elim H1; intros.
 apply make_horizontale_t1; auto with v62.
 clear H0 H1 H2 H3; apply make_horizontale; intros dx; case dx; intros.
-rewrite plus_zero; unfold G_Etat in |- *; rewrite un_pas.
+rewrite plus_zero; unfold G_Etat; rewrite un_pas.
 elim Hh; elim Hv; clear Hh Hv; intros; elim H4; clear H2 H3 H4; intros.
-generalize (H1 0); rewrite plus_zero; unfold G_Etat in |- *; intros.
-generalize (H2 0); rewrite plus_zero; unfold L_Etat in |- *; intros.
+generalize (H1 0); rewrite plus_zero; unfold G_Etat; intros.
+generalize (H2 0); rewrite plus_zero; unfold L_Etat; intros.
 unfold C_Etat in H; rewrite H; rewrite H3; try rewrite H4; auto with v62.
 
 absurd (S n <= 0); auto with v62.
@@ -97,7 +97,7 @@ apply GB_G; auto with v62.
 
 apply (GBG_dollarG (S t) x); auto with v62.
 
-elim Hv; intros; generalize (H4 un); rewrite plus_un; unfold G_Etat in |- *;
+elim Hv; intros; generalize (H4 un); rewrite plus_un; unfold G_Etat;
  intros.
 rewrite un_pas; unfold B_Etat in H0; rewrite H0; unfold G_Etat in H3;
  rewrite H3; try rewrite H5; auto with v62.
@@ -145,12 +145,12 @@ Lemma Ha3_Hg :
  Horizontale (t + sept) (S x) deux G_Etat.
 intros; rewrite plus_sept; apply H2_Hg.
 rewrite (minus_n_n trois); rewrite <- (plus_quatre (S t));
- unfold quatre in |- *; apply ZCB_Ht1; auto with v62.
+ unfold quatre; apply ZCB_Ht1; auto with v62.
 elim H0; intros; apply A_ZCB; auto with v62.
 rewrite plus_Snm_nSm; rewrite <- (plus_zero (S t)); apply H1; auto with v62.
 
 rewrite plus_Snm_nSm; rewrite <- (plus_un (S t)); apply H1;
- unfold un, six in |- *; auto with v62.
+ unfold un, six; auto with v62.
 
 rewrite plus_Snm_nSm; apply inclus_vert with (t := S t) (haut := six);
  auto with v62.
@@ -167,8 +167,8 @@ Lemma Ha_DD :
  A_basic t x (S cote) ->
  Verticale (S t) (S (x + S cote)) (triple cote) G_Etat ->
  DD (t + double cote) (S x) cote.
-intros; unfold double in |- *.
-pattern cote at 2 3 in |- *; rewrite (R3 cote); auto with v62.
+intros; unfold double.
+pattern cote at 2 3; rewrite (R3 cote); auto with v62.
 do 3 rewrite <- plus_Snm_nSm; rewrite plus_assoc;
  apply Ht1_DD with (cote := S cote - trois).
 apply R2; auto with v62.
@@ -182,7 +182,7 @@ apply le_n_triplem; apply le_trans with (m := deux); auto with v62.
 
 apply inclus_vert with (t := S t) (haut := triple cote); auto with v62.
 do 2 rewrite plus_Snm_nSm; apply plus_le_compat_l;
- rewrite <- (plus_trois cote); unfold triple in |- *;
+ rewrite <- (plus_trois cote); unfold triple;
  rewrite plus_assoc_reverse; apply plus_le_compat_l;
  apply le_trans with (m := deux + deux); auto with v62.
 apply plus_le_compat; auto with v62.
@@ -206,11 +206,11 @@ elim H0; intros; rewrite <- plus_S; apply B_Vg; auto with v62.
 rewrite <- (plus_zero (S t)); apply H1; auto with v62.
 
 rewrite <- (plus_un (S t)); apply H1; auto with v62.
-elim H; intros; unfold un in |- *; apply le_n_S; apply le_n_triplem;
+elim H; intros; unfold un; apply le_n_S; apply le_n_triplem;
  auto with v62.
 
 rewrite <- (plus_deux (S t)); apply H1; auto with v62.
-elim H; intros; unfold deux in |- *; apply le_n_S; apply le_n_triplem;
+elim H; intros; unfold deux; apply le_n_S; apply le_n_triplem;
  apply le_S_n; auto with v62.
 
 rewrite plus_trois; apply Ht1_VV.
@@ -221,10 +221,10 @@ elim H0; intros; apply B_ZCB; auto with v62.
 rewrite <- (plus_zero (S t)); apply H1; auto with v62.
 
 rewrite <- (plus_un (S t)); apply H1; auto with v62.
-unfold un in |- *; apply le_n_S; apply le_n_triplem; auto with v62.
+unfold un; apply le_n_S; apply le_n_triplem; auto with v62.
 
 rewrite <- (plus_deux (S t)); apply H1; auto with v62.
-elim H; intros; unfold deux in |- *; apply le_n_S; apply le_n_triplem;
+elim H; intros; unfold deux; apply le_n_S; apply le_n_triplem;
  apply le_S_n; auto with v62.
 
 apply inclus_vert with (t := S t) (haut := S (triple cote)); auto with v62.
@@ -242,15 +242,15 @@ Lemma Hb3_Hg :
  Horizontale (t + huit) (S x) deux G_Etat.
 intros; rewrite plus_huit; apply H2_Hg.
 rewrite (minus_n_n trois); rewrite <- (plus_quatre (S (S t)));
- unfold quatre in |- *; apply ZCB_Ht1; auto with v62.
+ unfold quatre; apply ZCB_Ht1; auto with v62.
 elim H0; intros; apply B_ZCB; auto with v62.
 rewrite plus_Snm_nSm; rewrite <- (plus_zero (S t)); apply H1; auto with v62.
 
 rewrite plus_Snm_nSm; rewrite <- (plus_un (S t)); apply H1;
- unfold un, sept in |- *; auto with v62.
+ unfold un, sept; auto with v62.
 
 rewrite plus_Snm_nSm; rewrite <- (plus_deux (S t)); apply H1;
- unfold deux, sept in |- *; auto with v62.
+ unfold deux, sept; auto with v62.
 
 rewrite plus_Snm_nSm; apply inclus_vert with (t := S t) (haut := sept);
  auto with v62.
@@ -267,7 +267,7 @@ Lemma Hb_DD :
  B_basic t x (S cote) ->
  Verticale (S t) (S (x + S cote)) (S (triple cote)) G_Etat ->
  DD (t + S (double cote)) (S x) cote.
-intros; unfold double in |- *; pattern cote at 2 3 in |- *; rewrite (R3 cote);
+intros; unfold double; pattern cote at 2 3; rewrite (R3 cote);
  auto with v62.
 rewrite <- plus_S; do 3 rewrite <- plus_Snm_nSm; rewrite plus_assoc;
  apply Ht1_DD with (cote := S cote - trois); auto with v62.
@@ -278,16 +278,16 @@ elim H1; intros; apply B_ZCB; auto with v62.
 rewrite <- (plus_zero (S t)); apply H2; auto with v62.
 
 rewrite <- (plus_un (S t)); apply H2; auto with v62.
-unfold un in |- *; apply le_n_S; apply le_n_triplem;
+unfold un; apply le_n_S; apply le_n_triplem;
  apply le_trans with (m := deux); auto with v62.
 
 rewrite <- (plus_deux (S t)); apply H2; auto with v62.
-unfold deux in |- *; apply le_n_S; apply le_n_triplem;
+unfold deux; apply le_n_S; apply le_n_triplem;
  apply le_trans with (m := deux); auto with v62.
 
 apply inclus_vert with (t := S t) (haut := S (triple cote)); auto with v62.
 do 3 rewrite plus_Snm_nSm; apply plus_le_compat_l;
- rewrite <- (plus_quatre cote); unfold triple in |- *;
+ rewrite <- (plus_quatre cote); unfold triple;
  rewrite plus_assoc_reverse; rewrite plus_n_Sm; apply plus_le_compat_l;
  apply le_trans with (m := deux + deux); auto with v62.
 rewrite <- plus_S; apply plus_le_compat; auto with v62.
@@ -310,8 +310,8 @@ Hypothesis Hv : Verticale (S t) (x + trois) cinq G_Etat.
 Lemma G22 : G_Etat (S (S t)) (S (S x)).
 elim Hc; elim Hv; clear Hc Hv; intros.
 generalize (H 0); clear H; rewrite plus_zero; rewrite plus_trois;
- unfold G_Etat in |- *; intros.
-elim H1; elim H2; clear H1 H2; unfold L_Etat, C_Etat in |- *;
+ unfold G_Etat; intros.
+elim H1; elim H2; clear H1 H2; unfold L_Etat, C_Etat;
  rewrite plus_deux; intros.
 generalize (H7 un un); clear H3 H4 H5 H6 H7 H8; do 3 rewrite plus_un; intros.
 rewrite un_pas; rewrite H2; rewrite H; try rewrite H3; auto with v62. 
@@ -319,23 +319,23 @@ Qed.
 
 Lemma G31 : G_Etat (S (S (S t))) (S x).
 elim Hc; intros.
-elim H0; elim H1; clear H0 H1; unfold L_Etat, C_Etat in |- *;
+elim H0; elim H1; clear H0 H1; unfold L_Etat, C_Etat;
  repeat rewrite plus_deux; intros.
 generalize (H2 un un); clear H0 H1 H2 H3 H4 H5 H6; do 3 rewrite plus_un;
  intros.
-generalize G22; unfold G_Etat in |- *; intros; rewrite un_pas; rewrite H0;
+generalize G22; unfold G_Etat; intros; rewrite un_pas; rewrite H0;
  auto with v62.
 rewrite H1; rewrite H7; auto with v62.
 Qed.
 
 Lemma A32 : A_Etat (S (S (S t))) (S (S x)).
 elim Hc; elim Hv; generalize G22; clear Hc Hv;
- unfold A_Etat, C_Etat, G_Etat in |- *; intros.
+ unfold A_Etat, C_Etat, G_Etat; intros.
 generalize (H0 un); clear H0; rewrite plus_un; rewrite plus_trois; intros.
 elim H3; clear H1 H2 H3; intros.
 generalize (H3 un un); clear H1 H2 H3 H4; do 3 rewrite plus_un; intros.
 rewrite un_pas; rewrite H; rewrite H0; try rewrite H1;
- unfold un, cinq in |- *; auto with v62.
+ unfold un, cinq; auto with v62.
 Qed.
 
 Lemma G41 : G_Etat (S (S (S (S t)))) (S x).
@@ -410,44 +410,44 @@ Lemma Hc_Vg :
  Verticale (S t) (S (x + S cote)) (S (S (triple cote))) G_Etat ->
  Verticale (S (t + S cote)) (S x) (S (double cote)) G_Etat.
 intros t x cote Hc; generalize Hc; apply R5 with (n := cote).
-do 2 rewrite plus_n_Sm; unfold double, triple, un in |- *;
+do 2 rewrite plus_n_Sm; unfold double, triple, un;
  repeat rewrite plus_un; intros; apply Hc2_Vg; auto with v62.
 
 clear Hc cote; intros cote Hlt H H0; rewrite (R1 cote); auto with v62.
 rewrite <- (plus_S 3); apply vv_vert.
 elim H0; intros; rewrite <- plus_S; apply C_Vg.
-unfold deux in |- *; apply lt_n_S; auto with v62.
+unfold deux; apply lt_n_S; auto with v62.
 
 auto with v62.
 
 rewrite <- (plus_zero (S t)); apply H1; auto with v62.
 
 rewrite <- (plus_un (S t)); apply H1; auto with v62.
-unfold un in |- *; apply le_n_S; apply le_S; apply le_n_triplem;
+unfold un; apply le_n_S; apply le_S; apply le_n_triplem;
  auto with v62.
 
 rewrite <- (plus_deux (S t)); apply H1; auto with v62.
-unfold deux in |- *; do 2 apply le_n_S; apply le_n_triplem; auto with v62.
+unfold deux; do 2 apply le_n_S; apply le_n_triplem; auto with v62.
 
 rewrite <- (plus_trois (S t)); apply H1; auto with v62.
-unfold trois in |- *; do 2 apply le_n_S; apply le_n_triplem; auto with v62.
+unfold trois; do 2 apply le_n_S; apply le_n_triplem; auto with v62.
 
 rewrite plus_quatre; apply Ht1_VV.
 do 3 rewrite <- plus_S; rewrite plus_n_Sm; apply ZCB_Ht1.
-unfold deux in |- *; apply lt_n_S; auto with v62.
+unfold deux; apply lt_n_S; auto with v62.
 
 elim H0; intros; apply C_ZCB; auto with v62.
 rewrite <- (plus_zero (S t)); apply H1; auto with v62.
 
 rewrite <- (plus_un (S t)); apply H1; auto with v62.
-unfold un in |- *; apply le_n_S; apply le_S; apply le_n_triplem;
+unfold un; apply le_n_S; apply le_S; apply le_n_triplem;
  auto with v62.
 
 rewrite <- (plus_deux (S t)); apply H1; auto with v62.
-unfold deux in |- *; do 2 apply le_n_S; apply le_n_triplem; auto with v62.
+unfold deux; do 2 apply le_n_S; apply le_n_triplem; auto with v62.
 
 rewrite <- (plus_trois (S t)); apply H1; auto with v62.
-unfold trois in |- *; do 2 apply le_n_S; apply le_n_triplem; auto with v62.
+unfold trois; do 2 apply le_n_S; apply le_n_triplem; auto with v62.
 
 apply inclus_vert with (t := S t) (haut := S (S (triple cote)));
  auto with v62.
@@ -464,18 +464,18 @@ Lemma Hc3_Hg :
  Horizontale (t + neuf) (S x) deux G_Etat.
 intros; rewrite plus_neuf; apply H2_Hg.
 rewrite (minus_n_n trois); rewrite <- (plus_quatre (S (S (S t))));
- unfold quatre in |- *; apply ZCB_Ht1; auto with v62.
+ unfold quatre; apply ZCB_Ht1; auto with v62.
 elim H0; intros; apply C_ZCB; auto with v62.
 rewrite plus_Snm_nSm; rewrite <- (plus_zero (S t)); apply H1; auto with v62.
 
 rewrite plus_Snm_nSm; rewrite <- (plus_un (S t)); apply H1;
- unfold un, huit in |- *; auto with v62.
+ unfold un, huit; auto with v62.
 
 rewrite plus_Snm_nSm; rewrite <- (plus_deux (S t)); apply H1;
- unfold deux, huit in |- *; auto with v62.
+ unfold deux, huit; auto with v62.
 
 rewrite plus_Snm_nSm; rewrite <- (plus_trois (S t)); apply H1;
- unfold trois, huit in |- *; auto with v62.
+ unfold trois, huit; auto with v62.
 
 rewrite plus_Snm_nSm; apply inclus_vert with (t := S t) (haut := huit);
  auto with v62.
@@ -492,7 +492,7 @@ Lemma Hc_DD :
  C_basic t x (S cote) ->
  Verticale (S t) (S (x + S cote)) (S (S (triple cote))) G_Etat ->
  DD (t + S (S (double cote))) (S x) cote.
-intros; unfold double in |- *; pattern cote at 2 3 in |- *; rewrite (R3 cote);
+intros; unfold double; pattern cote at 2 3; rewrite (R3 cote);
  auto with v62.
 do 2 rewrite <- plus_S; do 3 rewrite <- plus_Snm_nSm; rewrite plus_assoc;
  apply Ht1_DD with (cote := S cote - trois); auto with v62.
@@ -503,20 +503,20 @@ elim H1; intros; apply C_ZCB; auto with v62.
 rewrite <- (plus_zero (S t)); apply H2; auto with v62.
 
 rewrite <- (plus_un (S t)); apply H2; auto with v62.
-unfold un in |- *; apply le_n_S; auto with v62.
+unfold un; apply le_n_S; auto with v62.
 
 rewrite <- (plus_deux (S t)); apply H2; auto with v62.
-unfold deux in |- *; do 2 apply le_n_S; apply le_n_triplem;
+unfold deux; do 2 apply le_n_S; apply le_n_triplem;
  apply le_trans with (m := deux); auto with v62.
 
 rewrite <- (plus_trois (S t)); apply H2; auto with v62.
-unfold trois in |- *; do 2 apply le_n_S; apply le_n_triplem;
+unfold trois; do 2 apply le_n_S; apply le_n_triplem;
  apply le_trans with (m := deux); auto with v62.
 
 apply inclus_vert with (t := S t) (haut := S (S (triple cote)));
  auto with v62.
 do 4 rewrite plus_Snm_nSm; apply plus_le_compat_l; do 2 apply le_n_S;
- rewrite <- (plus_trois cote); unfold triple in |- *;
+ rewrite <- (plus_trois cote); unfold triple;
  rewrite plus_assoc_reverse; apply plus_le_compat_l;
  apply le_trans with (m := un + deux); auto with v62.
 

@@ -72,13 +72,13 @@ apply
     (R := G_Etat)
     (P' := L_Etat)
     (Q' := B_Etat); auto with v62.
-unfold loi, L_Etat, A_Etat, B_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, L_Etat, A_Etat, B_Etat, G_Etat; intros; simpl;
  rewrite H3; rewrite H4; rewrite H5; auto with v62.
 
-unfold loi, L_Etat, A_Etat, B_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, L_Etat, A_Etat, B_Etat, G_Etat; intros; simpl;
  rewrite H3; rewrite H4; rewrite H5; auto with v62.
 
-unfold loi, L_Etat, A_Etat, B_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, L_Etat, A_Etat, B_Etat, G_Etat; intros; simpl;
  rewrite H3; rewrite H4; rewrite H5; auto with v62.
 Qed.
 
@@ -92,16 +92,16 @@ intros Hlt H; elim H; clear H; intros;
  auto with v62.
 apply DD_D' with (P := L_Etat) (Q := C_Etat) (P' := L_Etat) (Q' := C_Etat);
  auto with v62.
-unfold loi, L_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, L_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H4; rewrite H5; rewrite H6; auto with v62.
 
-unfold loi, L_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, L_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H4; rewrite H5; rewrite H6; auto with v62.
 
-unfold loi, L_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, L_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H4; rewrite H5; rewrite H6; auto with v62.
 
-unfold loi, L_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, L_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H4; rewrite H5; rewrite H6; auto with v62.
 
 clear H0; intros H0;
@@ -113,16 +113,16 @@ clear H0; intros H0;
      (P' := G_Etat)
      (Q' := B_Etat)
      (R' := G_Etat); auto with v62.
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H4; rewrite H5; rewrite H6; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H4; rewrite H5; rewrite H6; 
  auto with v62.
 
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H4; rewrite H5; rewrite H6; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H4; rewrite H5; rewrite H6; 
  auto with v62.
 
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H4; rewrite H5; rewrite H6; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H4; rewrite H5; rewrite H6; 
  auto with v62.
 Qed.
 
@@ -135,28 +135,28 @@ intros H; elim H; clear H; intros;
  auto with v62.
 apply DD_D with (P := L_Etat) (Q := A_Etat) (P' := L_Etat) (Q' := A_Etat);
  auto with v62.
-unfold loi, L_Etat, A_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, L_Etat, A_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H4; rewrite H5; rewrite H6; auto with v62.
 
-unfold loi, L_Etat, A_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, L_Etat, A_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H4; rewrite H5; rewrite H6; auto with v62.
 
-unfold loi, L_Etat, A_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, L_Etat, A_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H4; rewrite H5; rewrite H6; auto with v62.
 
 clear H0; intros H0;
  apply D_DD with (P := L_Etat) (Q := A_Etat) (P' := G_Etat) (Q' := C_Etat);
  auto with v62.
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H4; rewrite H5; rewrite H6; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H4; rewrite H5; rewrite H6; 
  auto with v62.
 
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H4; rewrite H5; rewrite H6; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H4; rewrite H5; rewrite H6; 
  auto with v62.
 
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H4; rewrite H5; rewrite H6; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H4; rewrite H5; rewrite H6; 
  auto with v62.
 Qed.
 
@@ -170,38 +170,38 @@ intros Hb; elim Hb; intros; elim B_UA; auto with v62; clear H0; intros Hlt H0;
  auto with v62.
 apply D_DD with (P := L_Etat) (Q := B_Etat) (P' := G_Etat) (Q' := A_Etat);
  auto with v62.
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H5; rewrite H6; rewrite H7; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H5; rewrite H6; rewrite H7; 
  auto with v62.
 
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H5; rewrite H6; rewrite H7; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H5; rewrite H6; rewrite H7; 
  auto with v62.
 
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H5; rewrite H6; rewrite H7; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H5; rewrite H6; rewrite H7; 
  auto with v62.
 
 clear H1; intros H1;
  apply DDD with (P := G_Etat) (Q := A_Etat) (P' := G_Etat) (Q' := C_Etat);
  auto with v62.
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H5; rewrite H6; rewrite H7; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H5; rewrite H6; rewrite H7; 
  auto with v62.
 
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H5; rewrite H6; rewrite H7; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H5; rewrite H6; rewrite H7; 
  auto with v62.
 
-unfold loi_droite, B_Etat, G_Etat in |- *; intros t0 x0; case x0; intros;
- simpl in |- *; rewrite H5; rewrite H6; auto with v62.
+unfold loi_droite, B_Etat, G_Etat; intros t0 x0; case x0; intros;
+ simpl; rewrite H5; rewrite H6; auto with v62.
 
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H5; rewrite H6; rewrite H7; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H5; rewrite H6; rewrite H7; 
  auto with v62.
 
-unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros;
- simpl in |- *; rewrite H5; rewrite H6; rewrite H7; 
+unfold loi, L_Etat, A_Etat, B_Etat, C_Etat, G_Etat; intros;
+ simpl; rewrite H5; rewrite H6; rewrite H7; 
  auto with v62.
 Qed.
 
@@ -223,37 +223,37 @@ apply
     (R := G_Etat)
     (P' := G_Etat)
     (Q' := A_Etat); auto with v62.
-unfold loi, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, A_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H5; rewrite H6; rewrite H7; auto with v62.
 
-unfold loi, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, A_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H5; rewrite H6; rewrite H7; auto with v62.
 
-unfold loi_droite, C_Etat, G_Etat in |- *; intros t0 x0; case x0; intros;
- simpl in |- *; rewrite H5; rewrite H6; auto with v62.
+unfold loi_droite, C_Etat, G_Etat; intros t0 x0; case x0; intros;
+ simpl; rewrite H5; rewrite H6; auto with v62.
 
-unfold loi, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, A_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H5; rewrite H6; rewrite H7; auto with v62.
 
-unfold loi, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, A_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H5; rewrite H6; rewrite H7; auto with v62.
 
 clear H0; intros H0;
  apply DDD with (P := G_Etat) (Q := A_Etat) (P' := G_Etat) (Q' := C_Etat);
  auto with v62.
-unfold loi, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, A_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H5; rewrite H6; rewrite H7; auto with v62.
 
-unfold loi, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, A_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H5; rewrite H6; rewrite H7; auto with v62.
 
-unfold loi_droite, B_Etat, G_Etat in |- *; intros t0 x0; case x0; intros;
- simpl in |- *; rewrite H5; rewrite H6; auto with v62.
+unfold loi_droite, B_Etat, G_Etat; intros t0 x0; case x0; intros;
+ simpl; rewrite H5; rewrite H6; auto with v62.
 
-unfold loi, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, A_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H5; rewrite H6; rewrite H7; auto with v62.
 
-unfold loi, A_Etat, B_Etat, C_Etat, G_Etat in |- *; intros; simpl in |- *;
+unfold loi, A_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
  rewrite H5; rewrite H6; rewrite H7; auto with v62.
 Qed.
 
@@ -273,13 +273,13 @@ do 2 rewrite plus_un;
  apply
   DDdollar_D with (P := G_Etat) (Q := C_Etat) (P' := G_Etat) (Q' := B_Etat);
  auto with v62.
-unfold loi, B_Etat, C_Etat, G_Etat, L_Etat in |- *; intros; simpl in |- *;
+unfold loi, B_Etat, C_Etat, G_Etat, L_Etat; intros; simpl;
  rewrite H3; rewrite H4; rewrite H5; auto with v62.
 
-unfold loi, B_Etat, C_Etat, G_Etat, L_Etat in |- *; intros; simpl in |- *;
+unfold loi, B_Etat, C_Etat, G_Etat, L_Etat; intros; simpl;
  rewrite H3; rewrite H4; rewrite H5; auto with v62.
 
-unfold loi, B_Etat, C_Etat, G_Etat, L_Etat in |- *; intros; simpl in |- *;
+unfold loi, B_Etat, C_Etat, G_Etat, L_Etat; intros; simpl;
  rewrite H3; rewrite H4; rewrite H5; auto with v62.
 
 apply lt_S_n; rewrite Sminus_un; auto with v62.
@@ -308,17 +308,17 @@ do 2 rewrite plus_deux;
      (P' := G_Etat)
      (Q' := L_Etat)
      (R' := C_Etat).
-unfold loi, B_Etat, G_Etat, L_Etat in |- *; intros; simpl in |- *; rewrite H3;
+unfold loi, B_Etat, G_Etat, L_Etat; intros; simpl; rewrite H3;
  rewrite H4; rewrite H5; auto with v62.
 
-unfold loi, B_Etat, G_Etat, L_Etat in |- *; intros; simpl in |- *; rewrite H3;
+unfold loi, B_Etat, G_Etat, L_Etat; intros; simpl; rewrite H3;
  rewrite H4; rewrite H5; auto with v62.
 
 do 2 apply lt_S_n; rewrite SSminus_deux; auto with v62.
 
 rewrite SSminus_deux; auto with v62.
 
-rewrite <- (plus_un (S t)); rewrite <- (plus_un x); unfold deux in |- *;
+rewrite <- (plus_un (S t)); rewrite <- (plus_un x); unfold deux;
  rewrite Sminus_aSb; auto with v62.
 apply ZCB_GLC; auto with v62.
 
@@ -341,21 +341,21 @@ do 2 rewrite plus_trois;
      (R := C_Etat)
      (P' := G_Etat)
      (Q' := L_Etat).
-unfold loi, G_Etat, L_Etat in |- *; intros; simpl in |- *; rewrite H0;
+unfold loi, G_Etat, L_Etat; intros; simpl; rewrite H0;
  rewrite H1; rewrite H2; auto with v62.
 
-unfold loi, G_Etat, L_Etat in |- *; intros; simpl in |- *; rewrite H0;
+unfold loi, G_Etat, L_Etat; intros; simpl; rewrite H0;
  rewrite H1; rewrite H2; auto with v62.
 
 do 3 apply lt_S_n; rewrite SSSminus_trois; auto with v62.
 
-rewrite <- (plus_un (S t)); rewrite <- (plus_un x); unfold trois in |- *;
+rewrite <- (plus_un (S t)); rewrite <- (plus_un x); unfold trois;
  do 2 (rewrite Sminus_aSb; auto with v62).
 apply ZCB_GLC; auto with v62.
 
 apply lt_trans with (m := trois); auto with v62.
 
-rewrite <- (plus_deux (S t)); rewrite <- (plus_deux x); unfold trois in |- *;
+rewrite <- (plus_deux (S t)); rewrite <- (plus_deux x); unfold trois;
  rewrite Sminus_aSb; auto with v62.
 apply ZCB_l; auto with v62.
 
@@ -388,10 +388,10 @@ intros; apply ZCB_ll; auto with v62.
 
 intros; repeat rewrite <- plus_n_Sm;
  apply dd_d with (P := G_Etat) (Q := L_Etat) (P' := G_Etat) (Q' := L_Etat).
-unfold loi, G_Etat, L_Etat in |- *; intros; simpl in |- *; rewrite H7;
+unfold loi, G_Etat, L_Etat; intros; simpl; rewrite H7;
  rewrite H8; rewrite H9; auto with v62.
 
-unfold loi, G_Etat, L_Etat in |- *; intros; simpl in |- *; rewrite H7;
+unfold loi, G_Etat, L_Etat; intros; simpl; rewrite H7;
  rewrite H8; rewrite H9; auto with v62.
 
 apply lt_O_minus; auto with v62.
@@ -431,7 +431,7 @@ rewrite plus_assoc_reverse; rewrite le_plus_minus_r;
  repeat rewrite plus_Snm_nSm; auto with v62.
 rewrite <- (SSSminus_trois cote); auto with v62.
 
-unfold deux in |- *; auto with v62.
+unfold deux; auto with v62.
 
 rewrite <- (SSSminus_trois cote); auto with v62.
 Qed.

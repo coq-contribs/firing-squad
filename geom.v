@@ -133,7 +133,7 @@ Lemma Rec_Diag :
 intros; apply (Rec4 _ _ _ _ _ (make_diag t x cote P Q R)); auto with v62.
 intros; apply (inter 0 0 cote (fun dt dx : nat => Q (t + dt) (x + dx)));
  auto with v62.
-intros dx0 Hlt; rewrite (S_pred dx0); simpl in |- *; intros; auto with v62.
+intros dx0 Hlt; rewrite (S_pred dx0); simpl; intros; auto with v62.
 apply H1; auto with v62.
 rewrite plus_deux; auto with v62.
 
@@ -174,7 +174,7 @@ apply lt_S_n; rewrite H7; auto with v62.
 
 intros; apply (inter un 0 cote (fun dt dx : nat => Q (t + dt) (x + dx)));
  auto with v62.
-intros dx0 Hlt; rewrite (S_pred dx0); unfold un in |- *; simpl in |- *;
+intros dx0 Hlt; rewrite (S_pred dx0); unfold un; simpl;
  intros; auto with v62.
 apply H2; auto with v62.
 rewrite plus_trois; auto with v62.
@@ -224,10 +224,10 @@ intros dt dx Hl; generalize dx; clear dx; case Hl.
 intros dx Hg; case Hg.
 intro; repeat rewrite plus_un; auto with v62.
 
-simpl in |- *; unfold deux in |- *; intros; absurd (0 = m); auto with v62.
+simpl; unfold deux; intros; absurd (0 = m); auto with v62.
 injection H3; auto with v62.
 
-unfold deux in |- *; simpl in |- *; intros; absurd (1 < m + dx).
+unfold deux; simpl; intros; absurd (1 < m + dx).
 injection H4; intros H5; rewrite H5; auto with v62.
 
 apply le_lt_trans with (m := m + 0); auto with v62.

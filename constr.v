@@ -48,7 +48,7 @@ Lemma Pas_hh :
  P (t + S (S dt)) (x + dx) ->
  Q (S t + S dt) (x + S dx) ->
  R (S (S t) + dt) (x + S (S dx)) -> T (S (S t) + S dt) (x + S dx).
-intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl in |- *; intros;
+intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl; intros;
  auto with v62.
 Qed.
 
@@ -58,7 +58,7 @@ Lemma Pas_hd :
  P (t + S dt) (x + dx) ->
  Q (S t + dt) (x + S dx) ->
  R (S t + dt) (S x + S dx) -> T (S t + S dt) (S x + dx).
-intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl in |- *; intros;
+intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl; intros;
  auto with v62.
 Qed.
 
@@ -68,7 +68,7 @@ Lemma Pas_dh :
  P (t + S dt) (x + dx) ->
  Q (t + S dt) (S x + dx) ->
  R (S t + dt) (S x + S dx) -> T (S t + S dt) (S x + dx).
-intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl in |- *; intros;
+intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl; intros;
  auto with v62.
 Qed.
 
@@ -78,7 +78,7 @@ Lemma Pas_hddollar :
  P (t + S dt) (x + dx) ->
  Q (S t + dt) (x + S dx) ->
  R (S t + dt) (x + S (S dx)) -> T (S t + S dt) (x + S dx).
-intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl in |- *; intros;
+intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl; intros;
  auto with v62.
 Qed.
 
@@ -88,7 +88,7 @@ Lemma Pas_dhdollar :
  P (t + S dt) (x + dx) ->
  Q (t + S dt) (x + S dx) ->
  R (S t + dt) (x + S (S dx)) -> T (S t + S dt) (x + S dx).
-intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl in |- *; intros;
+intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl; intros;
  auto with v62.
 Qed.
 
@@ -96,7 +96,7 @@ Lemma demi_Pas_h :
  forall t x dt dx : nat,
  loi_droite Q R T ->
  Q (t + S dt) (x + dx) -> R (S t + dt) (x + S dx) -> T (S t + S dt) (x + dx).
-intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl in |- *; intros;
+intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl; intros;
  auto with v62.
 Qed.
 
@@ -104,7 +104,7 @@ Lemma demi_Pas_ddollar :
  forall t x dt dx : nat,
  loi_droite Q R T ->
  Q (t + dt) (x + dx) -> R (t + dt) (x + S dx) -> T (t + S dt) (x + dx).
-intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl in |- *; intros;
+intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl; intros;
  auto with v62.
 Qed.
 
@@ -114,7 +114,7 @@ Lemma Pas_hb :
  P (t + S (S dt)) (x + dx) ->
  Q (S t + S dt) (x + S dx) ->
  R (S (S t) + dt) (S x + S dx) -> T (S (S t) + S dt) (S x + dx).
-intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl in |- *; intros;
+intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl; intros;
  auto with v62.
 Qed.
 
@@ -124,7 +124,7 @@ Lemma Pas_bb :
  P (t + S (S dt)) (x + S dx) ->
  Q (S t + S dt) (S x + S dx) ->
  R (S (S t) + dt) (S (S x) + S dx) -> T (S (S t) + S dt) (S (S x) + dx).
-intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl in |- *; intros;
+intros t x dt dx; repeat rewrite <- plus_n_Sm; simpl; intros;
  auto with v62.
 Qed.
 
@@ -177,12 +177,12 @@ intros H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
 intros dx; rewrite plus_deux; case dx; intros.
-unfold un in |- *; apply (Pas_hh P Q' P'' Q''); auto with v62.
+unfold un; apply (Pas_hh P Q' P'' Q''); auto with v62.
 rewrite H8; rewrite plus_zero; auto with v62.
 
 rewrite H8; rewrite plus_zero; auto with v62.
 
-unfold un in |- *; apply (Pas_hh Q Q' P'' Q''); auto with v62.
+unfold un; apply (Pas_hh Q Q' P'' Q''); auto with v62.
 rewrite H8; rewrite plus_zero; auto with v62.
 
 intros dt dx; rewrite (plus_S dt); rewrite <- (plus_n_Sm dt); intros;
@@ -190,7 +190,7 @@ intros dt dx; rewrite (plus_S dt); rewrite <- (plus_n_Sm dt); intros;
 apply H5; auto with v62.
 rewrite (plus_S dt); rewrite <- (plus_n_Sm dt); auto with v62.
 
-intros dt; rewrite plus_deux; intros; unfold un in |- *;
+intros dt; rewrite plus_deux; intros; unfold un;
  apply (Pas_hh P Q' Q'' Q''); auto with v62.
 rewrite H8; rewrite plus_zero; auto with v62.
 
@@ -210,12 +210,12 @@ intros H; elim H; clear H.
 intros H0 H1 H2 H3 H4 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
 intros dx; rewrite plus_deux; case dx; intros.
-unfold un in |- *; apply (Pas_hh P Q' P'' Q''); auto with v62.
+unfold un; apply (Pas_hh P Q' P'' Q''); auto with v62.
 rewrite H9; rewrite plus_zero; auto with v62.
 
 rewrite H9; rewrite plus_zero; auto with v62.
 
-unfold un in |- *; apply (Pas_hh Q Q' P'' Q''); auto with v62.
+unfold un; apply (Pas_hh Q Q' P'' Q''); auto with v62.
 rewrite H9; rewrite plus_zero; auto with v62.
 
 intros dt dx; rewrite (plus_S dt); rewrite <- (plus_n_Sm dt); intros;
@@ -223,7 +223,7 @@ intros dt dx; rewrite (plus_S dt); rewrite <- (plus_n_Sm dt); intros;
 apply H6; auto with v62.
 rewrite (plus_S dt); rewrite <- (plus_n_Sm dt); auto with v62.
 
-intros dt; rewrite plus_deux; intros; unfold un in |- *;
+intros dt; rewrite plus_deux; intros; unfold un;
  apply (Pas_hh P Q' Q'' Q''); auto with v62.
 rewrite H9; rewrite plus_zero; auto with v62.
 
@@ -242,7 +242,7 @@ Lemma D'DD' :
 intros H; elim H; clear H.
 intros H0 H1 H2 H3 H4 H; elim H; clear H; intros.
 apply Rec_Diag'; auto with v62.
-intros dx; rewrite plus_deux; intros; unfold un in |- *;
+intros dx; rewrite plus_deux; intros; unfold un;
  apply (Pas_hh Q Q' P'' R''); auto with v62.
 apply H3; auto with v62.
 do 2 apply lt_S_n; rewrite H9; auto with v62.
@@ -250,16 +250,16 @@ do 2 apply lt_S_n; rewrite H9; auto with v62.
 rewrite H9; rewrite plus_zero; auto with v62.
 
 intros dx; rewrite plus_trois; case dx; intros.
-unfold deux in |- *; apply (Pas_hh P Q' R'' Q''); auto with v62.
+unfold deux; apply (Pas_hh P Q' R'' Q''); auto with v62.
 rewrite H9; rewrite plus_zero; auto with v62.
 
-unfold deux in |- *; apply (Pas_hh Q Q' R'' Q''); auto with v62.
+unfold deux; apply (Pas_hh Q Q' R'' Q''); auto with v62.
 
 intros; apply (Pas_hh Q Q' Q'' Q''); auto with v62.
 apply H3; auto with v62.
 rewrite plus_Snm_nSm; auto with v62.
 
-intros dt; rewrite plus_deux; intros; unfold un in |- *;
+intros dt; rewrite plus_deux; intros; unfold un;
  apply (Pas_hh P Q' Q'' Q''); auto with v62.
 rewrite H9; rewrite plus_zero; auto with v62.
 
@@ -278,7 +278,7 @@ Lemma DD'D :
 intros H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
-intros dx; rewrite plus_deux; intros; unfold un in |- *;
+intros dx; rewrite plus_deux; intros; unfold un;
  apply (Pas_hh Q R' P'' Q''); auto with v62.
 apply H2; auto with v62.
 do 2 apply lt_S_n; rewrite H9; auto with v62.
@@ -292,7 +292,7 @@ intros; apply (Pas_hh Q Q' Q'' Q''); auto with v62.
 apply H2; auto with v62.
 rewrite plus_Snm_nSm; auto with v62.
 
-intros dt; rewrite plus_deux; intros; unfold un in |- *;
+intros dt; rewrite plus_deux; intros; unfold un;
  apply (Pas_hh P Q' Q'' Q''); auto with v62.
 rewrite H9; rewrite plus_zero; auto with v62.
 
@@ -314,20 +314,20 @@ Lemma DD_D' :
 intros H H0; elim H0; clear H0.
 intros H0 H1 H2 H3 H4; elim H4; clear H4; intros.
 apply Rec_Diag'; auto with v62.
-intros dx; rewrite plus_deux; intros; unfold un in |- *;
+intros dx; rewrite plus_deux; intros; unfold un;
  apply (Pas_hd Q P' P'' R''); auto with v62.
 rewrite H9; rewrite plus_zero; auto with v62.
 
 rewrite H9; rewrite plus_zero; auto with v62.
 
-intros dx; rewrite plus_trois; intros; unfold deux in |- *;
+intros dx; rewrite plus_trois; intros; unfold deux;
  apply (Pas_hd Q Q' R'' Q''); auto with v62.
 
 intros; apply (Pas_hd Q Q' Q'' Q''); auto with v62.
 apply H6; auto with v62.
 rewrite <- plus_Snm_nSm; auto with v62.
 
-intros dt; rewrite plus_deux; intros; unfold un in |- *;
+intros dt; rewrite plus_deux; intros; unfold un;
  apply (Pas_hd Q Q' Q'' Q''); auto with v62.
 apply H2; auto with v62.
 rewrite plus_un; auto with v62.
@@ -355,7 +355,7 @@ Lemma D_D'D :
 intros H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
-intros dx; rewrite plus_deux; intros; unfold un in |- *;
+intros dx; rewrite plus_deux; intros; unfold un;
  apply (Pas_dh Q R' P'' Q''); auto with v62.
 apply H5; auto with v62.
 rewrite plus_un; auto with v62.
@@ -364,7 +364,7 @@ rewrite H9; rewrite plus_zero; auto with v62.
 
 intros; apply (Pas_dh Q Q' Q'' Q''); auto with v62.
 
-intros dt; rewrite plus_deux; intros; unfold un in |- *;
+intros dt; rewrite plus_deux; intros; unfold un;
  apply (Pas_dh Q Q' Q'' Q''); auto with v62.
 apply H2; auto with v62.
 rewrite plus_un; auto with v62.
@@ -390,7 +390,7 @@ intros H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
 intros dx; rewrite plus_deux; intros H8; injection H8; clear H8; intros;
- unfold un in |- *; apply (Pas_hddollar Q P' P'' Q''); 
+ unfold un; apply (Pas_hddollar Q P' P'' Q''); 
  auto with v62.
 apply H2; auto with v62.
 apply lt_S_n; rewrite H8; auto with v62.
@@ -404,7 +404,7 @@ apply H2; auto with v62.
 simpl in H10; injection H10; rewrite plus_Snm_nSm; auto with v62.
 
 intros dt; rewrite plus_deux; intros H8; injection H8; clear H8; intros;
- unfold un in |- *; apply (Pas_hddollar P Q' Q'' Q''); 
+ unfold un; apply (Pas_hddollar P Q' Q'' Q''); 
  auto with v62.
 rewrite H8; rewrite plus_zero; auto with v62.
 
@@ -429,7 +429,7 @@ intros H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
 intros dx; rewrite plus_deux; intros H8; injection H8; clear H8; intros;
- unfold un in |- *; apply (Pas_dhdollar Q Q' P'' Q''); 
+ unfold un; apply (Pas_dhdollar Q Q' P'' Q''); 
  auto with v62.
 apply H2; auto with v62.
 apply lt_S_n; rewrite H8; auto with v62.
@@ -442,7 +442,7 @@ apply H5; auto with v62.
 rewrite <- plus_n_Sm; rewrite H10; auto with v62.
 
 intros dt; rewrite plus_deux; intros H8; injection H8; clear H8; intros;
- unfold un in |- *; apply (Pas_dhdollar P Q' Q'' Q''); 
+ unfold un; apply (Pas_dhdollar P Q' Q'' Q''); 
  auto with v62.
 rewrite plus_zero; rewrite H8; auto with v62.
 
@@ -465,7 +465,7 @@ Lemma DD_D :
 intros Hlt H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
-intros dx; rewrite plus_deux; intros; unfold un in |- *;
+intros dx; rewrite plus_deux; intros; unfold un;
  apply (Pas_hd Q P' P'' Q''); auto with v62.
 rewrite plus_zero; rewrite H8; auto with v62.
 
@@ -475,7 +475,7 @@ intros; apply (Pas_hd Q Q' Q'' Q''); auto with v62.
 apply H5; auto with v62.
 rewrite <- plus_Snm_nSm; auto with v62.
 
-intros dt; rewrite plus_deux; intros; unfold un in |- *;
+intros dt; rewrite plus_deux; intros; unfold un;
  apply (Pas_hd Q Q' Q'' Q''); auto with v62.
 apply H2; auto with v62.
 rewrite plus_un; auto with v62.
@@ -503,7 +503,7 @@ Lemma D'D_D :
 intros H; elim H; clear H.
 intros H0 H1 H2 H3 H4 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
-intros dx; rewrite plus_deux; intros; unfold un in |- *;
+intros dx; rewrite plus_deux; intros; unfold un;
  apply (Pas_hd R P' P'' Q''); auto with v62.
 apply H2; auto with v62.
 rewrite plus_un; auto with v62.
@@ -516,7 +516,7 @@ intros; apply (Pas_hd Q Q' Q'' Q''); auto with v62.
 apply H6; auto with v62.
 rewrite <- plus_Snm_nSm; auto with v62.
 
-intros dt; rewrite plus_deux; intros; unfold un in |- *;
+intros dt; rewrite plus_deux; intros; unfold un;
  apply (Pas_hd Q Q' Q'' Q''); auto with v62.
 apply H3; auto with v62.
 apply lt_S_n; rewrite H9; auto with v62.
@@ -546,13 +546,13 @@ Lemma D_DD :
 intros H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
-intros dx; rewrite plus_deux; intros; unfold un in |- *;
+intros dx; rewrite plus_deux; intros; unfold un;
  apply (Pas_dh Q Q' P'' Q''); auto with v62.
 rewrite plus_zero; rewrite H8; auto with v62.
 
 intros; apply (Pas_dh Q Q' Q'' Q''); auto with v62.
 
-intros dt; rewrite plus_deux; intros; unfold un in |- *;
+intros dt; rewrite plus_deux; intros; unfold un;
  apply (Pas_dh Q Q' Q'' Q''); auto with v62.
 apply H2; auto with v62.
 rewrite plus_un; auto with v62.
@@ -576,10 +576,10 @@ Lemma DDdollar_D :
 intros Hlt H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
-intros dx; rewrite plus_deux; intros; unfold un in |- *;
+intros dx; rewrite plus_deux; intros; unfold un;
  apply (Pas_hb Q Q' P'' Q''); auto with v62.
 apply H2; auto with v62.
-simpl in |- *; rewrite <- H8; auto with v62.
+simpl; rewrite <- H8; auto with v62.
 
 rewrite plus_zero; rewrite H8; auto with v62.
 
@@ -590,7 +590,7 @@ rewrite <- H10; auto with v62.
 apply H5; auto with v62.
 rewrite <- plus_n_Sm; rewrite <- H10; auto with v62.
 
-intros dt; rewrite (plus_deux dt); unfold un in |- *; intros;
+intros dt; rewrite (plus_deux dt); unfold un; intros;
  apply (Pas_hb Q Q' Q'' Q''); auto with v62.
 apply H2; auto with v62.
 rewrite plus_un; rewrite <- H8; auto with v62.
@@ -616,10 +616,10 @@ Lemma DD_d :
 intros Hlt H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_SemiDiag; auto with v62.
-intros dx; unfold un in |- *; intros; simpl in H8;
+intros dx; unfold un; intros; simpl in H8;
  apply (Pas_bb Q Q' P'' Q''); auto with v62.
 apply H2; auto with v62.
-rewrite <- H8; simpl in |- *; auto with v62.
+rewrite <- H8; simpl; auto with v62.
 
 rewrite plus_zero; rewrite H8; auto with v62.
 
@@ -640,10 +640,10 @@ Lemma Dd_d :
 intros Hlt H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_SemiDiag; auto with v62.
-intros dx; unfold un in |- *; intros; simpl in H7;
+intros dx; unfold un; intros; simpl in H7;
  apply (Pas_bb Q Q' P'' Q''); auto with v62.
 apply H2; auto with v62.
-rewrite <- H7; simpl in |- *; auto with v62.
+rewrite <- H7; simpl; auto with v62.
 
 rewrite plus_zero; rewrite H7; auto with v62.
 
@@ -664,10 +664,10 @@ Lemma dd_d :
 intros Hlt H; elim H; clear H.
 intros H0 H1 H2 H; elim H; clear H; intros.
 apply Rec_SemiDiag; auto with v62.
-intros dx; unfold un in |- *; intros; simpl in H6;
+intros dx; unfold un; intros; simpl in H6;
  apply (Pas_bb Q Q' P'' Q''); auto with v62.
 apply H2; auto with v62.
-rewrite <- H6; simpl in |- *; auto with v62.
+rewrite <- H6; simpl; auto with v62.
 
 rewrite plus_zero; rewrite H6; auto with v62.
 

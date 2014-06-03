@@ -141,10 +141,10 @@ elim H8; auto with v62.
 
 apply (Rec4 _ _ _ _ _ (DD_C (S (S t)) x cote)); auto with v62.
 intros; apply C_C; auto with v62.
-rewrite plus_assoc_reverse; rewrite <- plus_n_Sm; simpl in |- *;
+rewrite plus_assoc_reverse; rewrite <- plus_n_Sm; simpl;
  rewrite SSplus_deuxtiers_untiers; auto with v62.
 
-rewrite plus_assoc_reverse; rewrite <- plus_n_Sm; simpl in |- *;
+rewrite plus_assoc_reverse; rewrite <- plus_n_Sm; simpl;
  rewrite SSplus_deuxtiers_untiers; auto with v62.
 
 intros Hc; elim Hc; clear Hc; intros; apply H3.
@@ -165,18 +165,18 @@ generalize H0; rewrite plus_quatre; auto with v62.
 generalize H1; rewrite plus_quatre; auto with v62.
 
 apply DD_C; auto with v62.
-unfold Deuxmod3 in |- *; auto with v62.
+unfold Deuxmod3; auto with v62.
 
-unfold tiers, double in |- *; simpl in |- *; elim (cinq_quatre t x);
+unfold tiers, double; simpl; elim (cinq_quatre t x);
  auto with v62.
 
-unfold tiers, double in |- *; simpl in |- *; rewrite plus_deux; apply DD_4;
+unfold tiers, double; simpl; rewrite plus_deux; apply DD_4;
  elim (cinq_quatre t x); auto with v62.
 
 cut (0 < double (tiers cote)); intros.
 apply (Rec4 _ _ _ _ _ (DD_B (S t) x (S cote))); try rewrite <- (tiers_S cote);
  try rewrite (S_pred (double (tiers cote))); auto with v62.
-unfold sept in |- *; apply le_n_S; auto with v62.
+unfold sept; apply le_n_S; auto with v62.
 
 apply Omod3_Unmod3; auto with v62.
 
@@ -198,17 +198,17 @@ apply lt_O_double; apply lt_O_tiers; apply le6_lt2; auto with v62.
 
 apply (Rec4 _ _ _ _ _ (DD_C (S t) x (S cote)));
  try rewrite <- (tiers_SS cote); auto with v62.
-unfold cinq in |- *; apply le_n_S; apply le_trans with (m := 7);
+unfold cinq; apply le_n_S; apply le_trans with (m := 7);
  auto with v62.
 
 apply Unmod3_Deuxmod3; auto with v62.
 
 intro; rewrite <- plus_n_Sm; apply B_C; auto with v62.
 rewrite plus_n_Sm; rewrite plus_assoc_reverse; rewrite <- plus_n_Sm;
- simpl in |- *; rewrite Splus_deuxtiers_untiers; auto with v62.
+ simpl; rewrite Splus_deuxtiers_untiers; auto with v62.
 
 rewrite plus_n_Sm; rewrite plus_assoc_reverse; rewrite <- plus_n_Sm;
- simpl in |- *; rewrite Splus_deuxtiers_untiers; auto with v62.
+ simpl; rewrite Splus_deuxtiers_untiers; auto with v62.
 
 intros Hc; elim Hc; clear Hc; intros; apply H3.
 elim H7; auto with v62.
@@ -217,20 +217,20 @@ elim H8; auto with v62.
 
 apply (Rec4 _ _ _ _ _ (DD_A (S t) x (S cote)));
  try rewrite <- (tiers_SSS cote); auto with v62.
-unfold six in |- *; apply le_n_S; auto with v62.
+unfold six; apply le_n_S; auto with v62.
 
 apply Deuxmod3_Omod3; auto with v62.
 
 intro; rewrite double_S; apply C_A; auto with v62.
-simpl in |- *; rewrite plus_assoc_reverse; rewrite <- plus_Snm_nSm;
+simpl; rewrite plus_assoc_reverse; rewrite <- plus_Snm_nSm;
  rewrite <- double_S; rewrite tiers_SSS; auto with v62;
  rewrite plus_deuxtiers_untiers; auto with v62.
 
-simpl in |- *; rewrite plus_assoc_reverse; rewrite <- plus_Snm_nSm;
+simpl; rewrite plus_assoc_reverse; rewrite <- plus_Snm_nSm;
  rewrite <- double_S; rewrite tiers_SSS; auto with v62;
  rewrite plus_deuxtiers_untiers; auto with v62.
 
-rewrite double_S; simpl in |- *; intros Ha; elim Ha; clear Ha; intros;
+rewrite double_S; simpl; intros Ha; elim Ha; clear Ha; intros;
  rewrite <- plus_n_Sm; apply DD_hh; auto with v62.
 rewrite plus_n_Sm; elim H7; auto with v62.
 
