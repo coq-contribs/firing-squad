@@ -40,6 +40,11 @@ Section automates.
 
 Section definitions.
 
+(* For extraction, we prepare a way to set/get the parameter N *)
+Parameter ref_N : (nat -> unit) * (unit -> nat).
+Definition set_N : nat -> unit := fst ref_N.
+Definition get_N : unit -> nat := snd ref_N.
+
 Parameter N : nat.
 Axiom necessaire : deux < definitions.N.
 

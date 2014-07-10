@@ -13,11 +13,12 @@ trapeze.v
 vertical.v
 algo.v
 # the test :
--custom "$(COQBIN)coqtop $(COQFLAGS) -silent -batch -load-vernac-source extract.v" algo.vo algo.ml
--custom "rm *.mli *.cm* *.o; $(CAMLBIN)ocamlopt -o fire unix.cmxa graphics.cmxa Datatypes.ml Peano.ml Specif.ml Peano_dec.ml nmax.ml bib.ml autom.ml algo.ml fire.ml" "algo.ml fire.ml" fire
--custom
+-extra "extracted.ml extracted.mli" algo.vo
+       "$(COQBIN)coqtop $(COQFLAGS) -silent -batch -load-vernac-source extract.v"
+-extra fire "extracted.ml fire.ml"
+       "$(CAMLBIN)ocamlopt -o fire unix.cmxa graphics.cmxa extracted.mli extracted.ml fire.ml"
+-extra-phony test fire
         "@echo '****** test: firing squad with 10 members *****'
 	./fire 10
 	@echo '**************** End of test *****************'"
-  fire test
-
+-extra-phony all test ""

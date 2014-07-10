@@ -45,11 +45,11 @@ Fixpoint constant (c : Couleur) (n : nat) {struct n} :
 (* Don't remove the dummy argument. It is used to protect from evaluation after 
    extraction. *)
 
-Definition initial_line (_ : nat) := G :: constant L autom.N.
+Definition initial_line (_ : unit) := G :: constant L autom.N.
 
 Fixpoint nth_line (n : nat) : list Couleur :=
   match n with
-  | O => initial_line 0
+  | O => initial_line tt
   | S n => next_line (nth_line n)
   end. 
 
@@ -65,12 +65,12 @@ intro p; case p; clear p; simpl; auto.
 intro p; intros; apply IHn; auto with arith.
 Qed.
 
-Lemma initial_line_O : nth 0 (initial_line 0) dft = G.
+Lemma initial_line_O : nth 0 (initial_line tt) dft = G.
 simpl; auto.
 Qed.
 
 Lemma initial_line_S :
- forall p : nat, 0 < p -> p <= autom.N -> nth p (initial_line 0) dft = L.
+ forall p : nat, 0 < p -> p <= autom.N -> nth p (initial_line tt) dft = L.
 intro p; case p.
 intro H; inversion H.
 simpl; intros; apply constant_correct; auto with arith.
@@ -132,7 +132,7 @@ Lemma length_constant :
 induction p; simpl; auto.
 Qed.
 
-Lemma length_initial_line : length (initial_line 0) = S autom.N.
+Lemma length_initial_line : length (initial_line tt) = S autom.N.
 simpl.
 rewrite length_constant; auto.
 Qed.

@@ -14,7 +14,12 @@
 (* 02110-1301 USA                                                     *)
 
 
-Require Import algo.
+Require algo.
 Extract Inductive list => list [ "[]" "(::)"].
-Extract Inlined Constant autom.N => "(Nmax.get())".
-Recursive Extraction Library algo.
+Extract Inductive prod => "( * )" [ "" ].
+Extract Inductive unit => "unit" [ "()" ].
+
+Extract Constant autom.ref_N => "let r = ref O in ((:=) r), (fun () -> !r)".
+Extract Inlined Constant autom.N => "(get_N ())".
+Extraction "extracted.ml"
+ autom.set_N autom.get_N algo.initial_line algo.next_line.
