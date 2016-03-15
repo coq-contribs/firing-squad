@@ -1,4 +1,5 @@
 -R . FiringSquad
+
 autom.v
 basic.v
 bib.v
@@ -12,6 +13,7 @@ sommet.v
 trapeze.v
 vertical.v
 algo.v
+
 # the test :
 -extra "extracted.ml extracted.mli" algo.vo
        "$(COQBIN)coqtop $(COQFLAGS) -silent -batch -load-vernac-source extract.v"
