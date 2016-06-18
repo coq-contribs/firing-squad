@@ -228,7 +228,7 @@ simpl; unfold deux; intros; absurd (0 = m); auto with v62.
 injection H3; auto with v62.
 
 unfold deux; simpl; intros; absurd (1 < m + dx).
-injection H4; intros H5; rewrite H5; auto with v62.
+injection H4 as -> ; auto with v62.
 
 apply le_lt_trans with (m := m + 0); auto with v62.
 

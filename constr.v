@@ -389,7 +389,7 @@ Lemma DD_Ddollar :
 intros H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
-intros dx; rewrite plus_deux; intros H8; injection H8; clear H8; intros;
+intros dx; rewrite plus_deux; intros H8; intros; injection H8 as H8; intros;
  unfold un; apply (Pas_hddollar Q P' P'' Q''); 
  auto with v62.
 apply H2; auto with v62.
@@ -401,9 +401,9 @@ rewrite H8; rewrite plus_zero; auto with v62.
 
 intros; apply (Pas_hddollar Q Q' Q'' Q''); auto with v62.
 apply H2; auto with v62.
-simpl in H10; injection H10; rewrite plus_Snm_nSm; auto with v62.
+simpl in H10; injection H10 as H10; rewrite plus_Snm_nSm; auto with v62.
 
-intros dt; rewrite plus_deux; intros H8; injection H8; clear H8; intros;
+intros dt; rewrite plus_deux; intros H8; injection H8 as H8; intros;
  unfold un; apply (Pas_hddollar P Q' Q'' Q''); 
  auto with v62.
 rewrite H8; rewrite plus_zero; auto with v62.
@@ -413,7 +413,7 @@ apply lt_S_n; rewrite H8; auto with v62.
 
 rewrite plus_un; auto with v62.
 
-intros dt; rewrite plus_un; intros H8; injection H8; clear H8; intros;
+intros dt; rewrite plus_un; intros H8; injection H8 as H8; intros;
  rewrite <- (plus_zero x); apply (demi_Pas_ddollar P' Q'' P''); 
  auto with v62.
 rewrite plus_zero; auto with v62.
@@ -428,7 +428,7 @@ Lemma D_DDdollar :
 intros H; elim H; clear H.
 intros H0 H1 H2 H3 H; elim H; clear H; intros.
 apply Rec_Diag; auto with v62.
-intros dx; rewrite plus_deux; intros H8; injection H8; clear H8; intros;
+intros dx; rewrite plus_deux; intros H8; injection H8 as H8; intros;
  unfold un; apply (Pas_dhdollar Q Q' P'' Q''); 
  auto with v62.
 apply H2; auto with v62.
@@ -436,12 +436,12 @@ apply lt_S_n; rewrite H8; auto with v62.
 
 rewrite plus_zero; rewrite H8; auto with v62.
 
-intros; simpl in H10; injection H10; clear H10; rewrite <- plus_Snm_nSm;
- intros H10; apply (Pas_dhdollar Q Q' Q'' Q''); auto with v62.
+intros; simpl in H10. injection H10 as H10; rewrite <- plus_Snm_nSm in H10;
+ apply (Pas_dhdollar Q Q' Q'' Q''); auto with v62.
 apply H5; auto with v62.
 rewrite <- plus_n_Sm; rewrite H10; auto with v62.
 
-intros dt; rewrite plus_deux; intros H8; injection H8; clear H8; intros;
+intros dt; rewrite plus_deux; intros H8; injection H8 as H8; intros;
  unfold un; apply (Pas_dhdollar P Q' Q'' Q''); 
  auto with v62.
 rewrite plus_zero; rewrite H8; auto with v62.
@@ -449,7 +449,7 @@ rewrite plus_zero; rewrite H8; auto with v62.
 apply H5; auto with v62.
 rewrite plus_un; rewrite H8; auto with v62.
 
-intros dt; rewrite plus_un; intros H8; injection H8; clear H8; intros;
+intros dt; rewrite plus_un; intros H8; injection H8 as H8; intros;
  rewrite <- (plus_zero x); apply (demi_Pas_h P' Q'' P''); 
  auto with v62.
 rewrite plus_zero; auto with v62.
