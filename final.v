@@ -40,7 +40,7 @@ Section finale.
 
 Remark N_un : autom.N = S (pred autom.N).
 apply S_pred.
-apply lt_trans with (m := deux); auto with v62.
+apply lt_trans with (m := deux); auto with arith.
 apply necessaire.
 Qed.
 
@@ -49,7 +49,7 @@ rewrite <- S_pred.
 apply N_un.
 
 apply lt_S_n; rewrite <- N_un.
-apply lt_trans with (m := deux); auto with v62.
+apply lt_trans with (m := deux); auto with arith.
 apply necessaire.
 Qed.
 
@@ -64,11 +64,11 @@ Qed.
 Remark R1 : S (pred (pred autom.N)) + autom.N <= un + pred (double autom.N).
 rewrite <- S_pred; unfold un, double; simpl.
 rewrite <- S_pred.
-apply plus_le_compat; auto with v62.
+apply plus_le_compat; auto with arith.
 
-rewrite N_un; simpl; auto with v62.
+rewrite N_un; simpl; auto with arith.
 
-rewrite N_deux; simpl; auto with v62.
+rewrite N_deux; simpl; auto with arith.
 Qed.
 
 Lemma base1 : Horizontale_t0 0 0 (pred autom.N) G_Etat L_Etat.
@@ -76,15 +76,15 @@ apply make_horizontale_t0.
 unfold G_Etat; apply G00.
 
 apply make_horizontale; intros; simpl.
-unfold L_Etat; apply base_L; auto with v62.
-rewrite N_un; apply lt_n_S; auto with v62.
+unfold L_Etat; apply base_L; auto with arith.
+rewrite N_un; apply lt_n_S; auto with arith.
 Qed.
 
 Lemma diagonale : DD (pred (pred autom.N)) 0 autom.N.
 rewrite N_un; simpl.
-replace (pred (pred autom.N)) with (0 + pred (pred autom.N)); auto with v62.
+replace (pred (pred autom.N)) with (0 + pred (pred autom.N)); auto with arith.
 apply Ht0_DDf.
-rewrite N_trois; simpl; unfold un; auto with v62.
+rewrite N_trois; simpl; unfold un; auto with arith.
 
 apply base1.
 Qed.
@@ -97,7 +97,7 @@ unfold G_Etat; apply G0N.
 unfold C_Etat; apply C0N1.
 
 apply make_horizontale; intros; simpl.
-unfold L_Etat; apply basedollar_L; auto with v62.
+unfold L_Etat; apply basedollar_L; auto with arith.
 Qed.
 
 Lemma vert_droite : Verticale un (S autom.N) (pred (double autom.N)) G_Etat.
@@ -109,7 +109,7 @@ Qed.
 Remark GN1 : G_Etat (pred (double autom.N)) (S autom.N).
 generalize vert_droite; rewrite N_un; rewrite double_S; simpl; intros.
 elim H; unfold un; simpl; intros.
-apply H0; auto with v62.
+apply H0; auto with arith.
 Qed.
 
 Lemma sommet_1 : Horizontale (pred (double autom.N)) 0 autom.N G_Etat.
@@ -129,17 +129,17 @@ Qed.
 
 Theorem firing_squad : Horizontale (double autom.N) 0 autom.N F_Etat.
 rewrite N_un; unfold double; simpl; apply Hg_Hf;
- auto with v62.
+ auto with arith.
 rewrite plus_pred.
 rewrite <- N_un; apply sommet_1.
 
-apply lt_trans with (m := deux); auto with v62.
+apply lt_trans with (m := deux); auto with arith.
 apply necessaire.
 
 rewrite plus_pred.
 rewrite <- N_un; apply GN1.
 
-apply lt_trans with (m := deux); auto with v62.
+apply lt_trans with (m := deux); auto with arith.
 apply necessaire.
 Qed.
 
