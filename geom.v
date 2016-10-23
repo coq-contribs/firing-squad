@@ -105,15 +105,15 @@ Fact inter :
   a < dt -> S dt + S b = long -> T dt (S (S b)) -> T (S dt) (S b)) ->
  forall dt dx : nat, a < dt -> b < dx -> dt + dx = long -> T dt dx.
 intros a b long T H1 H2 H3 dt dx Hlt; generalize dx; clear dx; elim Hlt;
- auto with v62.
+ auto with arith.
 clear Hlt dt; intros dt Hle Hr dx Hgt; case Hgt; intros.
-apply H3; auto with v62.
-apply Hr; auto with v62.
-rewrite <- plus_Snm_nSm; auto with v62.
+apply H3; auto with arith.
+apply Hr; auto with arith.
+rewrite <- plus_Snm_nSm; auto with arith.
 
-apply H2; auto with v62.
-apply Hr; auto with v62.
-rewrite <- plus_Snm_nSm; auto with v62.
+apply H2; auto with arith.
+apply Hr; auto with arith.
+rewrite <- plus_Snm_nSm; auto with arith.
 Qed.
 
 Lemma Rec_Diag :
@@ -130,21 +130,21 @@ Lemma Rec_Diag :
   dt + deux = cote -> Q (t + dt) (x + deux) -> Q (t + S dt) (x + un)) ->
  (forall dt : nat, dt + un = cote -> Q (t + dt) (x + un) -> R (t + cote) x) ->
  Diag t x cote P Q R.
-intros; apply (Rec4 _ _ _ _ _ (make_diag t x cote P Q R)); auto with v62.
+intros; apply (Rec4 _ _ _ _ _ (make_diag t x cote P Q R)); auto with arith.
 intros; apply (inter 0 0 cote (fun dt dx : nat => Q (t + dt) (x + dx)));
- auto with v62.
-intros dx0 Hlt; rewrite (S_pred dx0); simpl; intros; auto with v62.
-apply H1; auto with v62.
-rewrite plus_deux; auto with v62.
+ auto with arith.
+intros dx0 Hlt; rewrite (S_pred dx0); simpl; intros; auto with arith.
+apply H1; auto with arith.
+rewrite plus_deux; auto with arith.
 
-intros; apply H3; auto with v62.
-rewrite <- H10; rewrite plus_un; rewrite plus_deux; auto with v62.
+intros; apply H3; auto with arith.
+rewrite <- H10; rewrite plus_un; rewrite plus_deux; auto with arith.
 
-intros; apply (H4 (pred cote)); auto with v62.
-rewrite plus_un; rewrite <- S_pred; auto with v62.
+intros; apply (H4 (pred cote)); auto with arith.
+rewrite plus_un; rewrite <- S_pred; auto with arith.
 
-apply H5; auto with v62.
-rewrite plus_un; rewrite <- S_pred; auto with v62.
+apply H5; auto with arith.
+rewrite plus_un; rewrite <- S_pred; auto with arith.
 Qed.
 
 Lemma Rec_Diag' :
@@ -164,34 +164,34 @@ Lemma Rec_Diag' :
  (forall dt : nat, dt + un = cote -> Q (t + dt) (x + un) -> R (t + cote) x) ->
  Diag' t x cote P Q' Q R.
 intros; apply (Rec5 _ _ _ _ _ _ (make_diag' t x cote P Q' Q R));
- auto with v62.
+ auto with arith.
 intros H6 dx; rewrite (plus_un dx); intros H7; generalize H7;
- rewrite (S_pred dx); intros; auto with v62.
-apply H1; auto with v62.
-rewrite plus_deux; auto with v62.
+ rewrite (S_pred dx); intros; auto with arith.
+apply H1; auto with arith.
+rewrite plus_deux; auto with arith.
 
-apply lt_S_n; rewrite H7; auto with v62.
+apply lt_S_n; rewrite H7; auto with arith.
 
 intros; apply (inter un 0 cote (fun dt dx : nat => Q (t + dt) (x + dx)));
- auto with v62.
+ auto with arith.
 intros dx0 Hlt; rewrite (S_pred dx0); unfold un; simpl;
- intros; auto with v62.
-apply H2; auto with v62.
-rewrite plus_trois; auto with v62.
+ intros; auto with arith.
+apply H2; auto with arith.
+rewrite plus_trois; auto with arith.
 
-apply H6; auto with v62.
-rewrite plus_un; auto with v62.
+apply H6; auto with arith.
+rewrite plus_un; auto with arith.
 
-intros dt0; rewrite plus_un; intros; apply H4; auto with v62.
-rewrite plus_deux; auto with v62.
+intros dt0; rewrite plus_un; intros; apply H4; auto with arith.
+rewrite plus_deux; auto with arith.
 
-intros; apply (H5 (pred cote)); auto with v62.
-rewrite plus_un; rewrite <- S_pred; auto with v62.
-apply lt_deux_O; auto with v62.
+intros; apply (H5 (pred cote)); auto with arith.
+rewrite plus_un; rewrite <- S_pred; auto with arith.
+apply lt_deux_O; auto with arith.
 
-apply H6; auto with v62.
-rewrite plus_un; rewrite <- S_pred; auto with v62.
-apply lt_deux_O; auto with v62.
+apply H6; auto with arith.
+rewrite plus_un; rewrite <- S_pred; auto with arith.
+apply lt_deux_O; auto with arith.
 Qed.
 
 Lemma Rec_SemiDiag :
@@ -203,36 +203,36 @@ Lemma Rec_SemiDiag :
   0 < dt ->
   S dt + dx = cote -> Q (t + dt) (x + S dx) -> Q (t + S dt) (x + dx)) ->
  Semi_Diag t x cote P Q.
-intros; apply make_semidiag; auto with v62.
+intros; apply make_semidiag; auto with arith.
 intros dt dx Hlt; generalize dx; elim Hlt.
-intros; apply H1; auto with v62.
+intros; apply H1; auto with arith.
 
-intros; apply H2; auto with v62.
-apply H4; auto with v62.
-rewrite <- plus_Snm_nSm; auto with v62.
+intros; apply H2; auto with arith.
+apply H4; auto with arith.
+rewrite <- plus_Snm_nSm; auto with arith.
 Qed.
 
 Lemma deux_Diag :
  forall (P Q : Local_Prop) (t x : nat),
  P t (S (S x)) -> Q (S t) (S x) -> P (S (S t)) x -> Diag t x deux P Q P.
 intros; apply make_diag.
-auto with v62.
+auto with arith.
 
-rewrite plus_deux; auto with v62.
+rewrite plus_deux; auto with arith.
 
 intros dt dx Hl; generalize dx; clear dx; case Hl.
 intros dx Hg; case Hg.
-intro; repeat rewrite plus_un; auto with v62.
+intro; repeat rewrite plus_un; auto with arith.
 
-simpl; unfold deux; intros; absurd (0 = m); auto with v62.
-injection H3; auto with v62.
+simpl; unfold deux; intros; absurd (0 = m); auto with arith.
+injection H3; auto with arith.
 
 unfold deux; simpl; intros; absurd (1 < m + dx).
-injection H4 as -> ; auto with v62.
+injection H4 as -> ; auto with arith.
 
-apply le_lt_trans with (m := m + 0); auto with v62.
+apply le_lt_trans with (m := m + 0); auto with arith.
 
-rewrite plus_deux; auto with v62.
+rewrite plus_deux; auto with arith.
 Qed.
 
 Lemma rec_triangle_inf :
@@ -242,15 +242,15 @@ Lemma rec_triangle_inf :
  Triangle_inf t x cote P.
 intros; elim H; clear H; intros; apply make_triangle_inf.
 simple induction dt; intros.
-rewrite plus_zero; auto with v62.
+rewrite plus_zero; auto with arith.
 
 generalize H2 H3 (H1 dx); elim dx; intros.
-absurd (S n <= 0); auto with v62.
+absurd (S n <= 0); auto with arith.
 
 do 2 rewrite <- plus_n_Sm; apply H0.
-apply H1; auto with v62.
+apply H1; auto with arith.
 
-rewrite plus_n_Sm; apply H7; auto with v62.
+rewrite plus_n_Sm; apply H7; auto with arith.
 Qed.
 
 Lemma inclus_vert :
@@ -261,12 +261,12 @@ intros; apply make_verticale; intros.
 elim H1; intros.
 generalize (H3 (t' - t + dt)).
 rewrite plus_assoc.
-rewrite le_plus_minus_r; auto with v62.
+rewrite le_plus_minus_r; auto with arith.
 intros; apply H4.
 apply (fun p n m : nat => plus_le_reg_l n m p) with (p := t).
 rewrite plus_assoc.
-rewrite le_plus_minus_r; auto with v62.
-apply le_trans with (m := t' + haut'); auto with v62.
+rewrite le_plus_minus_r; auto with arith.
+apply le_trans with (m := t' + haut'); auto with arith.
 Qed.
 
 Lemma vv_vert :
@@ -274,13 +274,13 @@ Lemma vv_vert :
  Verticale t x haut P ->
  Verticale (t + S haut) x haut' P -> Verticale t x (S haut + haut') P.
 intros; apply make_verticale; intros; case (le_lt_dec dt haut).
-elim H; auto with v62.
+elim H; auto with arith.
 
 elim H0; intros; generalize (H2 (dt - S haut)).
-rewrite plus_assoc_reverse; rewrite le_plus_minus_r; auto with v62.
+rewrite plus_assoc_reverse; rewrite le_plus_minus_r; auto with arith.
 intros H4; apply H4;
  apply (fun p n m : nat => plus_le_reg_l n m p) with (p := S haut);
- rewrite le_plus_minus_r; auto with v62.
+ rewrite le_plus_minus_r; auto with arith.
 Qed.
 
 Lemma rec_vert :
@@ -290,38 +290,38 @@ Lemma rec_vert :
  Verticale t x (S (double haut)) P.
 intros; apply make_verticale; intros.
 elim (quotient2 dt); intros.
-rewrite e0; elim (H q); intros; auto with v62.
-apply le_S_double; rewrite <- e0; auto with v62.
+rewrite e0; elim (H q); intros; auto with arith.
+apply le_S_double; rewrite <- e0; auto with arith.
 
-rewrite e; elim (H q); intros; auto with v62.
-apply le_double; apply le_S_n; rewrite <- e; auto with v62.
+rewrite e; elim (H q); intros; auto with arith.
+apply le_double; apply le_S_n; rewrite <- e; auto with arith.
 Qed.
 
 Lemma vert_un :
  forall (t x : nat) (P : Local_Prop),
  P t x -> P (S t) x -> Verticale t x un P.
 intros; apply make_verticale; intros dt; case dt.
-intros; rewrite plus_zero; auto with v62.
+intros; rewrite plus_zero; auto with arith.
 
 clear dt; intros dt; case dt.
-intros; rewrite plus_un; auto with v62.
+intros; rewrite plus_un; auto with arith.
 
-intros; absurd (S (S n) <= 1); auto with v62.
+intros; absurd (S (S n) <= 1); auto with arith.
 Qed.
 
 Lemma vert_deux :
  forall (t x : nat) (P : Local_Prop),
  P t x -> P (S t) x -> P (S (S t)) x -> Verticale t x deux P.
 intros; apply make_verticale; intros dt; case dt.
-intros; rewrite plus_zero; auto with v62.
+intros; rewrite plus_zero; auto with arith.
 
 clear dt; intros dt; case dt.
-intros; rewrite plus_un; auto with v62.
+intros; rewrite plus_un; auto with arith.
 
 clear dt; intros dt; case dt.
-intros; rewrite plus_deux; auto with v62.
+intros; rewrite plus_deux; auto with arith.
 
-intros; absurd (S (S (S n)) <= 2); auto with v62.
+intros; absurd (S (S (S n)) <= 2); auto with arith.
 Qed.
 
 Lemma vert_trois :
@@ -329,18 +329,18 @@ Lemma vert_trois :
  P t x ->
  P (S t) x -> P (S (S t)) x -> P (S (S (S t))) x -> Verticale t x trois P.
 intros; apply make_verticale; intros dt; case dt.
-intros; rewrite plus_zero; auto with v62.
+intros; rewrite plus_zero; auto with arith.
 
 clear dt; intros dt; case dt.
-intros; rewrite plus_un; auto with v62.
+intros; rewrite plus_un; auto with arith.
 
 clear dt; intros dt; case dt.
-intros; rewrite plus_deux; auto with v62.
+intros; rewrite plus_deux; auto with arith.
 
 clear dt; intros dt; case dt.
-intros; rewrite plus_trois; auto with v62.
+intros; rewrite plus_trois; auto with arith.
 
-intros; absurd (S (S (S (S n))) <= 3); auto with v62.
+intros; absurd (S (S (S (S n))) <= 3); auto with arith.
 Qed.
 
 Lemma hh_hor :
@@ -349,42 +349,42 @@ Lemma hh_hor :
  Horizontale t (x + S cote) cote' P -> Horizontale t x (S cote + cote') P.
 intros * H H0; apply make_horizontale.
 intros dx; case (le_gt_dec dx cote).
-intros; elim H; auto with v62.
+intros; elim H; auto with arith.
 
 intros; elim H0; intros H3.
 replace dx with (S cote + (dx - S cote)).
 rewrite plus_assoc; apply H3.
 apply (fun p n m : nat => plus_le_reg_l n m p) with (p := S cote).
-rewrite le_plus_minus_r; auto with v62.
+rewrite le_plus_minus_r; auto with arith.
 
-rewrite le_plus_minus_r; auto with v62.
+rewrite le_plus_minus_r; auto with arith.
 Qed.
 
 Lemma hor_un :
  forall (t x : nat) (P : Local_Prop),
  P t x -> P t (S x) -> Horizontale t x un P.
 intros; apply make_horizontale; intros dx; case dx.
-intros; rewrite plus_zero; auto with v62.
+intros; rewrite plus_zero; auto with arith.
 
 clear dx; intros dx; case dx.
-intros; rewrite plus_un; auto with v62.
+intros; rewrite plus_un; auto with arith.
 
-intros; absurd (S (S n) <= 1); auto with v62.
+intros; absurd (S (S n) <= 1); auto with arith.
 Qed.
 
 Lemma hor_deux :
  forall (t x : nat) (P : Local_Prop),
  P t x -> P t (S x) -> P t (S (S x)) -> Horizontale t x deux P.
 intros; apply make_horizontale; intros dx; case dx.
-intros; rewrite plus_zero; auto with v62.
+intros; rewrite plus_zero; auto with arith.
 
 clear dx; intros dx; case dx.
-intros; rewrite plus_un; auto with v62.
+intros; rewrite plus_un; auto with arith.
 
 clear dx; intros dx; case dx.
-intros; rewrite plus_deux; auto with v62.
+intros; rewrite plus_deux; auto with arith.
 
-intros; absurd (S (S (S n)) <= 2); auto with v62.
+intros; absurd (S (S (S n)) <= 2); auto with arith.
 Qed.
 
 Lemma hor_trois :
@@ -392,18 +392,18 @@ Lemma hor_trois :
  P t x ->
  P t (S x) -> P t (S (S x)) -> P t (S (S (S x))) -> Horizontale t x trois P.
 intros; apply make_horizontale; intros dx; case dx.
-intros; rewrite plus_zero; auto with v62.
+intros; rewrite plus_zero; auto with arith.
 
 clear dx; intros dx; case dx.
-intros; rewrite plus_un; auto with v62.
+intros; rewrite plus_un; auto with arith.
 
 clear dx; intros dx; case dx.
-intros; rewrite plus_deux; auto with v62.
+intros; rewrite plus_deux; auto with arith.
 
 clear dx; intros dx; case dx.
-intros; rewrite plus_trois; auto with v62.
+intros; rewrite plus_trois; auto with arith.
 
-intros; absurd (S (S (S (S n))) <= 3); auto with v62.
+intros; absurd (S (S (S (S n))) <= 3); auto with arith.
 Qed.
 
 Lemma hor_quatre :
@@ -413,22 +413,22 @@ Lemma hor_quatre :
  P t (S (S x)) ->
  P t (S (S (S x))) -> P t (S (S (S (S x)))) -> Horizontale t x quatre P.
 intros; apply make_horizontale; intros dx; case dx.
-intros; rewrite plus_zero; auto with v62.
+intros; rewrite plus_zero; auto with arith.
 
 clear dx; intros dx; case dx.
-intros; rewrite plus_un; auto with v62.
+intros; rewrite plus_un; auto with arith.
 
 clear dx; intros dx; case dx.
-intros; rewrite plus_deux; auto with v62.
+intros; rewrite plus_deux; auto with arith.
 
 clear dx; intros dx; case dx.
-intros; rewrite plus_trois; auto with v62.
+intros; rewrite plus_trois; auto with arith.
 
 clear dx; intros dx; case dx.
-intros; rewrite plus_quatre; auto with v62.
+intros; rewrite plus_quatre; auto with arith.
 
-intros; absurd (S (S (S (S (S n)))) <= 4); auto with v62.
-apply lt_not_le; repeat apply lt_n_S; auto with v62.
+intros; absurd (S (S (S (S (S n)))) <= 4); auto with arith.
+apply lt_not_le; repeat apply lt_n_S; auto with arith.
 Qed.
 
 End principes.
