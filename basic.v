@@ -77,43 +77,43 @@ Lemma A_A :
  L_Etat (S (S t)) (x + cote) ->
  L_Etat (S (S (S t))) (x + cote) -> A_basic (S (S t)) x cote.
 intros H; elim H; clear H; intros.
-apply (Rec3 _ _ _ _ (make_A_basic (S (S t)) x cote)); auto with v62.
+apply (Rec3 _ _ _ _ (make_A_basic (S (S t)) x cote)); auto with arith.
 apply DDD with (P := L_Etat) (Q := A_Etat) (P' := L_Etat) (Q' := A_Etat);
- auto with v62.
+ auto with arith.
 unfold loi, L_Etat, A_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, A_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi_droite, L_Etat, A_Etat; intros t0 x0; case x0; intros;
- simpl; rewrite H4; rewrite H5; auto with v62.
-case (Etat t0 n); auto with v62.
+ simpl; rewrite H4; rewrite H5; auto with arith.
+case (Etat t0 n); auto with arith.
 
 unfold loi, L_Etat, A_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, A_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 clear H0; intros H0;
  apply DDD with (P := L_Etat) (Q := A_Etat) (P' := L_Etat) (Q' := A_Etat);
- auto with v62.
+ auto with arith.
 unfold loi, L_Etat, A_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, A_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi_droite, L_Etat, A_Etat; intros t0 x0; case x0; intros;
- simpl; rewrite H4; rewrite H5; auto with v62.
-case (Etat t0 n); auto with v62.
+ simpl; rewrite H4; rewrite H5; auto with arith.
+case (Etat t0 n); auto with arith.
 
 unfold loi, L_Etat, A_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, A_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 Qed.
 
 Lemma B_B :
@@ -121,7 +121,7 @@ Lemma B_B :
  L_Etat (S (S t)) (x + cote) ->
  L_Etat (S (S (S t))) (x + cote) -> B_basic (S (S t)) x cote.
 intros H; elim H; clear H; intros.
-apply (Rec3 _ _ _ _ (make_B_basic (S (S t)) x cote)); auto with v62.
+apply (Rec3 _ _ _ _ (make_B_basic (S (S t)) x cote)); auto with arith.
 apply
  D'DD'
   with
@@ -129,25 +129,25 @@ apply
     (Q := B_Etat)
     (R := G_Etat)
     (P' := L_Etat)
-    (Q' := B_Etat); auto with v62.
+    (Q' := B_Etat); auto with arith.
 unfold loi, L_Etat, B_Etat, G_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, B_Etat, G_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi_droite, L_Etat, B_Etat; intros t0 x0; case x0; intros;
- simpl; rewrite H4; rewrite H5; auto with v62.
-case (Etat t0 n); auto with v62.
+ simpl; rewrite H4; rewrite H5; auto with arith.
+case (Etat t0 n); auto with arith.
 
 unfold loi, L_Etat, B_Etat, G_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, B_Etat, G_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, B_Etat, G_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 clear H0; intros H0;
  apply
@@ -157,19 +157,19 @@ clear H0; intros H0;
      (Q := B_Etat)
      (R' := G_Etat)
      (P' := L_Etat)
-     (Q' := B_Etat); auto with v62.
+     (Q' := B_Etat); auto with arith.
 unfold loi, L_Etat, B_Etat, G_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi_droite, L_Etat, B_Etat; intros t0 x0; case x0; intros;
- simpl; rewrite H4; rewrite H5; auto with v62.
-case (Etat t0 n); auto with v62.
+ simpl; rewrite H4; rewrite H5; auto with arith.
+case (Etat t0 n); auto with arith.
 
 unfold loi, L_Etat, B_Etat, G_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, B_Etat, G_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 Qed.
 
 Lemma C_C :
@@ -177,43 +177,43 @@ Lemma C_C :
  L_Etat (S (S t)) (x + cote) ->
  L_Etat (S (S (S t))) (x + cote) -> C_basic (S (S t)) x cote.
 intros H; elim H; clear H; intros.
-apply (Rec3 _ _ _ _ (make_C_basic (S (S t)) x cote)); auto with v62.
+apply (Rec3 _ _ _ _ (make_C_basic (S (S t)) x cote)); auto with arith.
 apply DDD with (P := L_Etat) (Q := C_Etat) (P' := L_Etat) (Q' := C_Etat);
- auto with v62.
+ auto with arith.
 unfold loi, L_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi_droite, L_Etat, C_Etat; intros t0 x0; case x0; intros;
- simpl; rewrite H4; rewrite H5; auto with v62.
-case (Etat t0 n); auto with v62.
+ simpl; rewrite H4; rewrite H5; auto with arith.
+case (Etat t0 n); auto with arith.
 
 unfold loi, L_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 clear H0; intros H0;
  apply DDD with (P := L_Etat) (Q := C_Etat) (P' := L_Etat) (Q' := C_Etat);
- auto with v62.
+ auto with arith.
 unfold loi, L_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi_droite, L_Etat, C_Etat; intros t0 x0; case x0; intros;
- simpl; rewrite H4; rewrite H5; auto with v62.
-case (Etat t0 n); auto with v62.
+ simpl; rewrite H4; rewrite H5; auto with arith.
+case (Etat t0 n); auto with arith.
 
 unfold loi, L_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 Qed.
 
 Lemma A_B :
@@ -221,20 +221,20 @@ Lemma A_B :
  L_Etat (S t) (S x + cote) ->
  L_Etat (S (S t)) (S x + cote) -> B_basic (S t) (S x) cote.
 intros H; elim H; clear H; intros.
-apply (Rec3 _ _ _ _ (make_B_basic (S t) (S x) cote)); auto with v62.
+apply (Rec3 _ _ _ _ (make_B_basic (S t) (S x) cote)); auto with arith.
 apply DD_D' with (P := L_Etat) (Q := A_Etat) (P' := L_Etat) (Q' := A_Etat);
- auto with v62.
+ auto with arith.
 unfold loi, L_Etat, A_Etat, B_Etat, G_Etat; intros; simpl;
- rewrite H4; rewrite H5; rewrite H6; auto with v62.
+ rewrite H4; rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, A_Etat, B_Etat, G_Etat; intros; simpl;
- rewrite H4; rewrite H5; rewrite H6; auto with v62.
+ rewrite H4; rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, A_Etat, B_Etat, G_Etat; intros; simpl;
- rewrite H4; rewrite H5; rewrite H6; auto with v62.
+ rewrite H4; rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, A_Etat, B_Etat, G_Etat; intros; simpl;
- rewrite H4; rewrite H5; rewrite H6; auto with v62.
+ rewrite H4; rewrite H5; rewrite H6; auto with arith.
 
 clear H0; intros H0;
  apply
@@ -244,15 +244,15 @@ clear H0; intros H0;
      (Q := A_Etat)
      (P' := L_Etat)
      (Q' := B_Etat)
-     (R' := G_Etat); auto with v62.
+     (R' := G_Etat); auto with arith.
 unfold loi, L_Etat, A_Etat, B_Etat, G_Etat; intros; simpl;
- rewrite H4; rewrite H5; rewrite H6; auto with v62.
+ rewrite H4; rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, A_Etat, B_Etat, G_Etat; intros; simpl;
- rewrite H4; rewrite H5; rewrite H6; auto with v62.
+ rewrite H4; rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, A_Etat, B_Etat, G_Etat; intros; simpl;
- rewrite H4; rewrite H5; rewrite H6; auto with v62.
+ rewrite H4; rewrite H5; rewrite H6; auto with arith.
 Qed.
 
 Lemma C_A :
@@ -260,39 +260,39 @@ Lemma C_A :
  L_Etat (S t) (x + S cote) ->
  L_Etat (S (S t)) (x + S cote) -> A_basic (S t) x (S cote).
 intros H; elim H; clear H; intros.
-apply (Rec3 _ _ _ _ (make_A_basic (S t) x (S cote))); auto with v62.
+apply (Rec3 _ _ _ _ (make_A_basic (S t) x (S cote))); auto with arith.
 apply
  DD_Ddollar with (P := L_Etat) (Q := C_Etat) (P' := L_Etat) (Q' := C_Etat);
- auto with v62.
+ auto with arith.
 unfold loi, L_Etat, A_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi_droite, L_Etat, A_Etat; intros t0 x0; case x0; intros;
- simpl; rewrite H4; rewrite H5; auto with v62.
-case (Etat t0 n); auto with v62.
+ simpl; rewrite H4; rewrite H5; auto with arith.
+case (Etat t0 n); auto with arith.
 
 unfold loi, L_Etat, A_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, A_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 clear H0; intros H0;
  apply
   D_DDdollar with (P := L_Etat) (Q := C_Etat) (P' := L_Etat) (Q' := A_Etat);
- auto with v62.
+ auto with arith.
 unfold loi, L_Etat, A_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi_droite, L_Etat, A_Etat; intros t0 x0; case x0; intros;
- simpl; rewrite H4; rewrite H5; auto with v62.
-case (Etat t0 n); auto with v62.
+ simpl; rewrite H4; rewrite H5; auto with arith.
+case (Etat t0 n); auto with arith.
 
 unfold loi, L_Etat, A_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, A_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 Qed.
 
 Lemma B_C :
@@ -300,7 +300,7 @@ Lemma B_C :
  L_Etat (S t) (S x + cote) ->
  L_Etat (S (S t)) (S x + cote) -> C_basic (S t) (S x) cote.
 intros H; elim H; clear H; intros.
-apply (Rec3 _ _ _ _ (make_C_basic (S t) (S x) cote)); auto with v62.
+apply (Rec3 _ _ _ _ (make_C_basic (S t) (S x) cote)); auto with arith.
 apply
  D'D_D
   with
@@ -308,27 +308,27 @@ apply
     (Q := B_Etat)
     (R := G_Etat)
     (P' := L_Etat)
-    (Q' := B_Etat); auto with v62.
+    (Q' := B_Etat); auto with arith.
 unfold loi, L_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
- rewrite H4; rewrite H5; rewrite H6; auto with v62.
+ rewrite H4; rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
- rewrite H4; rewrite H5; rewrite H6; auto with v62.
+ rewrite H4; rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, B_Etat, C_Etat, G_Etat; intros; simpl;
- rewrite H4; rewrite H5; rewrite H6; auto with v62.
+ rewrite H4; rewrite H5; rewrite H6; auto with arith.
 
 clear H0; intros H0;
  apply D_DD with (P := L_Etat) (Q := B_Etat) (P' := L_Etat) (Q' := C_Etat);
- auto with v62.
+ auto with arith.
 unfold loi, L_Etat, B_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, B_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 
 unfold loi, L_Etat, B_Etat, C_Etat; intros; simpl; rewrite H4;
- rewrite H5; rewrite H6; auto with v62.
+ rewrite H5; rewrite H6; auto with arith.
 Qed.
 
 End construction2.
@@ -337,56 +337,56 @@ Section sommet.
 
 Lemma GA_G : forall t x : nat, G_Etat t x -> A_Etat t (S x) -> G_Etat (S t) x.
 unfold A_Etat, G_Etat; intros t x; case x; intros.
-rewrite demi_pas; rewrite H; rewrite H0; auto with v62.
+rewrite demi_pas; rewrite H; rewrite H0; auto with arith.
 
-rewrite un_pas; rewrite H; rewrite H0; auto with v62.
+rewrite un_pas; rewrite H; rewrite H0; auto with arith.
 Qed.
 
 Lemma GB_G : forall t x : nat, G_Etat t x -> B_Etat t (S x) -> G_Etat (S t) x.
 unfold B_Etat, G_Etat; intros t x; case x; intros.
-rewrite demi_pas; rewrite H; rewrite H0; auto with v62.
+rewrite demi_pas; rewrite H; rewrite H0; auto with arith.
 
-rewrite un_pas; rewrite H; rewrite H0; auto with v62.
+rewrite un_pas; rewrite H; rewrite H0; auto with arith.
 Qed.
 
 Lemma GC_G : forall t x : nat, G_Etat t x -> C_Etat t (S x) -> G_Etat (S t) x.
 unfold C_Etat, G_Etat; intros t x; case x; intros.
-rewrite demi_pas; rewrite H; rewrite H0; auto with v62.
+rewrite demi_pas; rewrite H; rewrite H0; auto with arith.
 
-rewrite un_pas; rewrite H; rewrite H0; auto with v62.
+rewrite un_pas; rewrite H; rewrite H0; auto with arith.
 Qed.
 
 Lemma GA_dollarC :
  forall t x : nat, G_Etat t x -> A_Etat t (S x) -> C_Etat (S t) (S x).
 unfold A_Etat, C_Etat, G_Etat; intros; rewrite un_pas; rewrite H;
- rewrite H0; auto with v62.
+ rewrite H0; auto with arith.
 Qed.
 
 Lemma GBA_dollarC :
  forall t x : nat,
  G_Etat t x -> B_Etat t (S x) -> A_Etat t (S (S x)) -> C_Etat (S t) (S x).
 unfold A_Etat, B_Etat, C_Etat, G_Etat; intros; rewrite un_pas;
- rewrite H; rewrite H0; rewrite H1; auto with v62.
+ rewrite H; rewrite H0; rewrite H1; auto with arith.
 Qed.
 
 Lemma GBG_dollarG :
  forall t x : nat,
  G_Etat t x -> B_Etat t (S x) -> G_Etat t (S (S x)) -> G_Etat (S t) (S x).
 unfold B_Etat, G_Etat; intros; rewrite un_pas; rewrite H; rewrite H0;
- rewrite H1; auto with v62.
+ rewrite H1; auto with arith.
 Qed.
 
 Lemma GBC_dollarB :
  forall t x : nat,
  G_Etat t x -> B_Etat t (S x) -> C_Etat t (S (S x)) -> B_Etat (S t) (S x).
 unfold B_Etat, C_Etat, G_Etat; intros; rewrite un_pas; rewrite H;
- rewrite H0; rewrite H1; auto with v62.
+ rewrite H0; rewrite H1; auto with arith.
 Qed.
 
 Lemma GC_dollarB :
  forall t x : nat, G_Etat t x -> C_Etat t (S x) -> B_Etat (S t) (S x).
 unfold B_Etat, C_Etat, G_Etat; intros; rewrite un_pas; rewrite H;
- rewrite H0; auto with v62.
+ rewrite H0; auto with arith.
 Qed.
 
 End sommet.
