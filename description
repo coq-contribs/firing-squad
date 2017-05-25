@@ -1,7 +1,7 @@
 Name: FiringSquad
 Title: Firing Squad Synchronization Problem
 Author: Jean Duprat
-Institution: LIP, Ecole Normale Supérieure de Lyon
+Institution: LIP, Ecole Normale SupÃ©rieure de Lyon
 Description: This contribution is a formal verification of a solution
 of the firing squad synchronization problem.
 Keywords: concurrency, synchronization, finite-state machines
