@@ -15,6 +15,7 @@
 
 
 Require algo.
+Require Extraction.
 Extract Inductive list => list [ "[]" "(::)"].
 Extract Inductive prod => "( * )" [ "" ].
 Extract Inductive unit => "unit" [ "()" ].
