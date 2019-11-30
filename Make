@@ -16,7 +16,7 @@ algo.v
 
 # the test :
 -extra "extracted.ml extracted.mli" algo.vo
-       "$(COQBIN)coqtop $(COQFLAGS) -silent -batch -load-vernac-source extract.v"
+       "$(COQBIN)coqtop $(COQFLAGS) -R . FiringSquad -silent -batch -load-vernac-source extract.v"
 -extra fire "extracted.ml fire.ml"
        "$(CAMLBIN)ocamlopt -o fire unix.cmxa graphics.cmxa extracted.mli extracted.ml fire.ml"
 -extra-phony test fire
